@@ -1,0 +1,41 @@
+# Idea
+.DS_Store
+.idea
+.vscode
+
+# Javascript
+node_modules
+dist
+build
+
+public/.well-known/
+
+# WordPress
+wp
+public/content
+wp-translation-downloader.lock
+
+# Composer
+vendor
+
+# Composer Plugins
+plugins/*/wp-content
+plugins/*/composer.lock
+
+# Languages
+public/content/languages
+!public/content/languages/plugins
+!public/content/mu-plugins/languages
+
+# Dotenv
+.env
+.env.*
+!.env.example
+
+# Local
+sql/
+
+# Other
+debug.log
+wp-debug.log
+.turbo
