@@ -21,7 +21,7 @@ require_once WOO1881_PATH . '/woocommerce-checkout/legacy/legacy-checkout.php';
 function add_rest_route() {
 	\register_rest_route(
 		'woo1881/v1',
-		'/search',
+		'/phone_lookup',
 		[
 			'method'              => \WP_REST_SERVER::READABLE,
 			'callback'            => __NAMESPACE__ . '\\rest_perform_search',
@@ -58,7 +58,17 @@ function rest_perform_search( \WP_REST_Request $request = null ) {
 		], 200 );
 	}
 
-	$search_results = do_1881_api_phone_lookup( $phone );
+	$transient_key = 'woo1881_phonelookup_' . $phone;
+
+	// TODO: Set this back when done debugging.
+	// MINUTE_IN_SECONDS * 30
+
+	$search_results = \get_transient( $transient_key );
+	if ( false === $search_results ) {
+		$search_results = do_1881_api_phone_lookup( $phone );
+		\set_transient( $transient_key, $search_results, \apply_filters( 'woo1881_cache_phone_lookup_time', MINUTE_IN_SECONDS * 10000 ) );
+	}
+
 	$search_results = \apply_filters( 'woo1881_contacts_from_lookup', $search_results, $phone );
 
 	return new \WP_REST_Response( [
@@ -90,16 +100,19 @@ function render_checkout_lookup_html(): string {
 	if ( empty( $settings['1881_subscription_key'] ) ) {
 		return '';
 	}
-	$is_block = is_block_checkout();
+
+	$is_block      = is_block_checkout();
+	$wrapper_class = $is_block ? 'block-checkout' : 'legacy-checkout';
 
 	$output = \sprintf(
-		'<div class="woo1881-lookup" id="woo1881-lookup">
-			<p class="woo1881-description">%1$s</p>
+		'<div class="woo1881-lookup %1$s" id="woo1881-lookup">
+			<p class="woo1881-description">%2$s</p>
 			<div class="woo1881-input-container wc-block-components-text-input">
-				<label for="woo1881-phone-lookup">%2$s</label>
-				<input type="tel" id="woo1881-phone-lookup" class="woo1881-lookup-input" autocapitalize="characters" autocomplete="tel" aria-label="%2$s" aria-invalid="false" />
+				<label for="woo1881-phone-lookup">%3$s</label>
+				<input type="tel" id="woo1881-phone-lookup" class="woo1881-lookup-input" autocapitalize="characters" autocomplete="tel" aria-label="%3$s" aria-invalid="false" />
 			</div>
 		</div>',
+		\esc_attr( $wrapper_class ),
 		\wp_kses_post( $settings['1881_checkout_description'] ),
 		\esc_html__( 'Phone number for 1881 lookup', WOO1881_PLUGIN_DOMAIN )
 	);
