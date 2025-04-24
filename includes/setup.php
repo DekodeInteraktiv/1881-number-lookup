@@ -112,6 +112,7 @@ function parse_contactinfo_for_frontend( array $search_results ): array {
 		$new_item['last_name']  = ! empty( $item['lastName'] ) ? $item['lastName'] : '';
 
 		// Find email.
+		$new_item['email'] = '';
 		if ( ! empty( $item['contactPoints'] ) ) {
 			foreach ( $item['contactPoints'] as $contact ) {
 				if ( 'Email' === $contact['type'] ) {

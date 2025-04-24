@@ -3,6 +3,7 @@ jQuery(function($) {
 	if (!woo1881wrapper || !window.Woo1881) {
 		return;
 	}
+	const checkoutForm = $('.woocommerce-checkout');
 	let phoneNumber;
 	let autocompleteResults = [];
 
@@ -50,18 +51,83 @@ jQuery(function($) {
 		}).then((data) => {
 			if (data.success && data.search_result.length > 0) {
 				autocompleteResults = data.search_result;
-
-				// TODO: If only 1 hit, then just autofill instead of autocomplete?
-				if (autocompleteResults.length > 0) {
+				if (autocompleteResults.length == 1) {
+					fillInInfoAndUpdate(autocompleteResults[0]);
+				} else {
 					createAutoomplete();
 				}
 			}
 		});
 	};
 
+	// Fill in all checkout inputs with values.
 	const fillInInfoAndUpdate = (contactInfo) => {
-		console.log('fill in this:', contactInfo);
-		// TODO: Fill in. Ref discussion with Vincent.
+		// Billing.
+		const inputBillingFirstName = checkoutForm.find('input[name="billing_first_name"]');
+		if (inputBillingFirstName.length > 0) {
+			inputBillingFirstName.val(contactInfo.first_name);
+		}
+		const inputBillingLastName = checkoutForm.find('input[name="billing_last_name"]');
+		if (inputBillingLastName.length > 0) {
+			inputBillingLastName.val(contactInfo.last_name);
+		}
+		const inputBillingAddress1 = checkoutForm.find('input[name="billing_address_1"]');
+		if (inputBillingAddress1.length > 0) {
+			inputBillingAddress1.val(contactInfo.billing_address.street_address);
+		}
+		const inputBillingPostcode = checkoutForm.find('input[name="billing_postcode"]');
+		if (inputBillingPostcode.length > 0) {
+			inputBillingPostcode.val(contactInfo.billing_address.zip);
+		}
+		const inputBillingCity = checkoutForm.find('input[name="billing_city"]');
+		if (inputBillingCity.length > 0) {
+			inputBillingCity.val(contactInfo.billing_address.city);
+		}
+		const inputBillingPhone = checkoutForm.find('input[name="billing_phone"]');
+		if (inputBillingPhone.length > 0) {
+			inputBillingPhone.val(phoneNumber);
+		}
+		const inputBillingEmail = checkoutForm.find('input[name="billing_email"]');
+		if (inputBillingEmail.length > 0) {
+			inputBillingEmail.val(contactInfo.email);
+		}
+
+		// Shipping.
+		const inputShippingFirstName = checkoutForm.find('input[name="shipping_first_name"]');
+		if (inputShippingFirstName.length > 0) {
+			inputShippingFirstName.val(contactInfo.first_name);
+		}
+		const inputShippingLastName = checkoutForm.find('input[name="shipping_last_name"]');
+		if (inputShippingLastName.length > 0) {
+			inputShippingLastName.val(contactInfo.last_name);
+		}
+		const inputShippingAddress1 = checkoutForm.find('input[name="shipping_address_1"]');
+		if (inputShippingAddress1.length > 0) {
+			inputShippingAddress1.val(contactInfo.shipping_address.street_address);
+		}
+		const inputShippingPostcode = checkoutForm.find('input[name="shipping_postcode"]');
+		if (inputShippingPostcode.length > 0) {
+			inputShippingPostcode.val(contactInfo.shipping_address.zip);
+		}
+		const inputShippingCity = checkoutForm.find('input[name="shipping_city"]');
+		if (inputShippingCity.length > 0) {
+			inputShippingCity.val(contactInfo.shipping_address.city);
+		}
+
+		// Company.
+		if (contactInfo.type == 'Company') {
+			const inputBillingCompany = checkoutForm.find('input[name="billing_company"]');
+			if (inputBillingCompany.length > 0) {
+				inputBillingCompany.val(contactInfo.company_name);
+			}
+			const inputShippingCompany = checkoutForm.find('input[name="shipping_company"]');
+			if (inputShippingCompany.length > 0) {
+				inputShippingCompany.val(contactInfo.company_name);
+			}
+		}
+
+		// Trigger checkout updated event.
+		$(document.body).trigger('update_checkout');
 	};
 
 	$(document).on('click', '.woo1881-autocomplete-item', function() {
