@@ -71,6 +71,9 @@ function rest_perform_search( \WP_REST_Request $request = null ) {
 
 	$search_results = \apply_filters( 'woo1881_contacts_from_lookup', $search_results, $phone );
 
+	// Parse the results into a easy-to-handle format for JS.
+	$search_results = parse_contactinfo_for_frontend( $search_results );
+
 	return new \WP_REST_Response( [
 		'success'       => true,
 		'search_result' => $search_results,
@@ -86,6 +89,104 @@ function rest_perform_search( \WP_REST_Request $request = null ) {
  */
 function validate_phone_number( string $phone_number ): string {
 	return \apply_filters( 'woo1881_validate_phone_number_before_search', $phone_number );
+}
+
+/***
+ * Parse the 1881 results and filter out the info we want to pass on to frontend.
+ *
+ * @param array $search_results Search results directly from 1881 API.
+ * @return array
+ */
+function parse_contactinfo_for_frontend( array $search_results ): array {
+	$formatted = [];
+
+	$address_truncate_length = \apply_filters( 'woo1881_autocomplete_address_truncate_length', 15 );
+
+	foreach ( $search_results as $item ) {
+		$type     = $item['type'];
+		$new_item = [
+			'type' => $item['type'],
+		];
+
+		$new_item['first_name'] = ! empty( $item['firstName'] ) ? $item['firstName'] : '';
+		$new_item['last_name']  = ! empty( $item['lastName'] ) ? $item['lastName'] : '';
+
+		// Find email.
+		if ( ! empty( $item['contactPoints'] ) ) {
+			foreach ( $item['contactPoints'] as $contact ) {
+				if ( 'Email' === $contact['type'] ) {
+					$new_item['email'] = $contact['value'];
+				}
+			}
+		}
+
+		if ( 'Company' === $type ) {
+			$new_item['company_name'] = $item['name'];
+			$new_item['orgno']        = $item['organizationNumber'];
+
+			// "address" is always used for shipping, and also for billing but only if "postAddress" is empty.
+			$address = [
+				'street_address' => $item['legalInformation']['address']['street'],
+				'zip'            => $item['legalInformation']['address']['postCode'],
+				'city'           => $item['legalInformation']['address']['postArea'],
+			];
+			if ( ! empty( $item['legalInformation']['address']['houseNumber'] ) ) {
+				$address['street_address'] .= ' ' . $item['legalInformation']['address']['houseNumber'];
+			}
+
+			if ( ! empty( $item['legalInformation']['postAddress'] ) ) {
+				$new_item['shipping_address'] = $address;
+
+				// Then use "postAddress" as billing.
+				$address = [
+					'street_address' => $item['legalInformation']['postAddress']['street'],
+					'zip'            => $item['legalInformation']['postAddress']['postCode'],
+					'city'           => $item['legalInformation']['postAddress']['postArea'],
+				];
+				if ( ! empty( $item['legalInformation']['postAddress']['houseNumber'] ) ) {
+					$address['street_address'] .= ' ' . $item['legalInformation']['postAddress']['houseNumber'];
+				}
+				$new_item['billing_address'] = $address;
+			} else {
+				// No postaddress given for company, use "address" for both billing and shipping.
+				$new_item['billing_address']  = $address;
+				$new_item['shipping_address'] = $address;
+			}
+
+			// Build display in autocomplete.
+			$new_item['autocomplete_display'] = $item['name'] . ' (';
+			$truncated_address = ( ! empty( $item['legalInformation']['postAddress'] ) ) ? $item['legalInformation']['postAddress']['addressString'] : $item['legalInformation']['address']['addressString'];
+			if ( \strlen( $truncated_address ) > $address_truncate_length ) {
+				$truncated_address = \substr( $truncated_address, 0, $address_truncate_length ) . '...';
+			}
+			$new_item['autocomplete_display'] .= $truncated_address . ')';
+
+		} elseif ( 'Person' === $type ) {
+			// Person has only one address.
+			$address = [
+				'street_address' => $item['geography']['address']['street'],
+				'zip'            => $item['geography']['address']['postCode'],
+				'city'           => $item['geography']['address']['postArea'],
+			];
+			if ( ! empty( $item['geography']['address']['houseNumber'] ) ) {
+				$address['street_address'] .= ' ' . $item['geography']['address']['houseNumber'];
+			}
+			$new_item['billing_address']  = $address;
+			$new_item['shipping_address'] = $address;
+
+			// Build display in autocomplete.
+			$new_item['autocomplete_display'] = $item['name'] . ' (';
+			$truncated_address               = $item['geography']['address']['addressString'];
+			if ( \strlen( $truncated_address ) > $address_truncate_length ) {
+				$truncated_address = \substr( $truncated_address, 0, $address_truncate_length ) . '...';
+			}
+			$new_item['autocomplete_display'] .= $truncated_address . ')';
+		}
+
+		$formatted[] = $new_item;
+	}
+
+	return \apply_filters( 'woo1881_contacts_formatted', $formatted, $search_results );
 }
 
 /***

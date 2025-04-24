@@ -31,20 +31,7 @@ jQuery(function($) {
 			const itemDOM = document.createElement('div');
 			itemDOM.classList.add('woo1881-autocomplete-item');
 			itemDOM.dataset.resultIndex = i;
-			let textContent = '';
-			if (autocompleteResults[i].firstName) {
-				textContent = autocompleteResults[i].firstName;
-				if (autocompleteResults[i].lastName) {
-					textContent += ' ';
-				}
-			}
-			if (autocompleteResults[i].lastName) {
-				textContent += autocompleteResults[i].lastName;
-			}
-			if (textContent == '' && autocompleteResults[i].type == 'Company') {
-				textContent = autocompleteResults[i].companyName;
-			}
-			itemDOM.textContent = textContent;
+			itemDOM.textContent = autocompleteResults[i].autocomplete_display;
 			autocompleteDOM.appendChild(itemDOM);
 		}
 		woo1881wrapper.find('.woo1881-input-container').append(autocompleteDOM);
@@ -62,35 +49,7 @@ jQuery(function($) {
 			return response.json();
 		}).then((data) => {
 			if (data.success && data.search_result.length > 0) {
-				data.search_result.forEach(hit => {
-					const itemObj = {
-						type: hit.type,
-						streetAddress: hit.geography.address.street,
-						houseNumber: hit.geography.address.houseNumber,
-						zip: hit.geography.address.postCode,
-						city: hit.geography.address.postArea,
-					};
-
-					if (hit.firstName) {
-						itemObj.firstName = hit.firstName;
-					}
-					if (hit.lastName) {
-						itemObj.lastName = hit.lastName;
-					}
-
-					if (hit.type == 'Company') {
-						itemObj.companyName = hit.name;
-						itemObj.orgno = hit.organizationNumber;
-					}
-
-					// Find email.
-					hit.contactPoints.forEach(contactPoint => {
-						if (contactPoint.type == 'Email') {
-							itemObj.email = contactPoint.value;
-						}
-					});
-					autocompleteResults.push(itemObj);
-				});
+				autocompleteResults = data.search_result;
 
 				// TODO: If only 1 hit, then just autofill instead of autocomplete?
 				if (autocompleteResults.length > 0) {
@@ -101,7 +60,7 @@ jQuery(function($) {
 	};
 
 	const fillInInfoAndUpdate = (contactInfo) => {
-		console.log('fill in', contactInfo);
+		console.log('fill in this:', contactInfo);
 		// TODO: Fill in. Ref discussion with Vincent.
 	};
 
