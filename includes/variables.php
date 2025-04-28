@@ -20,12 +20,22 @@ function get_default_admin_settings(): array {
 }
 
 /***
+ * Returns saved settings from admin page.
+ *
+ * @return array
+ */
+function get_saved_settings(): array {
+	$settings = \get_option( 'woo1881_admin_settings' );
+	return ! empty( $settings ) ? $settings : [];
+}
+
+/***
  * Returns saved subscription key from admin settings.
  *
  * @return string
  */
 function get_subscription_key(): string {
-	$settings = \get_option( 'woo1881_admin_settings' );
+	$settings = get_saved_settings();
 	return ! empty( $settings ) && ! empty( $settings['1881_subscription_key'] ) ? $settings['1881_subscription_key'] : '';
 }
 

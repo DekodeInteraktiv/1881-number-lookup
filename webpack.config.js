@@ -6,6 +6,7 @@ module.exports = {
 	entry: {
 		...defaultConfig.entry(),
 		'frontend': './src/frontend.css',
+		'checkout-block-1881-lookup/view': './src/checkout-block-1881-lookup/view.css',
 	},
 	plugins: [
 		...defaultConfig.plugins.filter(

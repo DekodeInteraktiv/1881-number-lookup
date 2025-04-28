@@ -59,7 +59,7 @@ function enqueue_legacy_checkout_frontend_assets() {
 			'Woo1881',
 			\apply_filters( 'woo1881_script_localized_variables', [
 				'phone_lookup_rest' => \get_rest_url( null, 'woo1881/v1/phone_lookup' ),
-				'keyup_delay'       => 500,
+				'keyup_delay_ms'    => \apply_filters( 'woo1881_keyup_delay_ms', 500 ),
 			] )
 		);
 	}

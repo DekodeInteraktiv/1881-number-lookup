@@ -33,7 +33,7 @@ define( 'WOO1881_PLUGIN_DOMAIN', 'woo1881' );
  * Check if WooCommerce is active before running code.
  */
 if ( \in_array( 'woocommerce/woocommerce.php', \apply_filters( 'active_plugins', \get_option( 'active_plugins' ) ) ) || ( \is_multisite() && \array_key_exists( 'woocommerce/woocommerce.php', \get_site_option( 'active_sitewide_plugins' ) ) ) ) {
-	require_once WOO1881_PATH . '/includes/setup.php';
+	require_once WOO1881_PATH . '/includes/core.php';
 } else {
 	\add_action( 'admin_notices', __NAMESPACE__ . '\\display_woo_not_installed_notice' );
 }

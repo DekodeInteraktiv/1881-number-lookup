@@ -144,5 +144,5 @@ jQuery(function($) {
 		if (phoneNumber.length >= 8) {
 			lookupPhoneNumber();
 		}
-	}, window.Woo1881.keyup_delay));
+	}, window.Woo1881.keyup_delay_ms));
 });

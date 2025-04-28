@@ -10,8 +10,8 @@ namespace Woo1881;
 require_once WOO1881_PATH . '/admin/admin.php';
 require_once WOO1881_PATH . '/api/api.php';
 require_once WOO1881_PATH . '/includes/variables.php';
-require_once WOO1881_PATH . '/woocommerce-checkout/blocks/block-checkout.php';
-require_once WOO1881_PATH . '/woocommerce-checkout/legacy/legacy-checkout.php';
+require_once WOO1881_PATH . '/includes/block-checkout/block-checkout.php';
+require_once WOO1881_PATH . '/includes/legacy-checkout/legacy-checkout.php';
 
 \add_action( 'rest_api_init', __NAMESPACE__ . '\\add_rest_route' );
 
@@ -232,5 +232,4 @@ function is_block_checkout(): bool {
 		return false;
 	}
 	return \WC_Blocks_Utils::has_block_in_page( \wc_get_page_id( 'checkout' ), 'woocommerce/checkout' );
-	// return \Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils::is_checkout_block_default();
 }
