@@ -16,8 +16,8 @@ namespace Woo1881\Admin;
 function register_admin_menu() {
 	\add_submenu_page(
 		'woocommerce',
-		\esc_html__( 'Woo 1881', WOO1881_PLUGIN_DOMAIN ),
-		\esc_html__( 'Woo 1881', WOO1881_PLUGIN_DOMAIN ),
+		esc_html__( 'Woo 1881', 'woo1881' ),
+		esc_html__( 'Woo 1881', 'woo1881' ),
 		\apply_filters( 'woo1881_admin_page_capability', 'manage_woocommerce' ),
 		'woo1881_settings_page',
 		__NAMESPACE__ . '\\custom_admin_page_content'
@@ -30,15 +30,15 @@ function register_admin_menu() {
 function custom_admin_page_content() {
 	?>
 	<div class="wrap woocommerce">
-		<h2><?php \esc_html_e( 'WooCommerce 1881 Integration', WOO1881_PLUGIN_DOMAIN ); ?></h2>
-		<p><?php \esc_html_e( 'Start using 1881 integration in checkout by providing your subscription key below.', WOO1881_PLUGIN_DOMAIN ); ?></p>
+		<h2><?php esc_html_e( 'WooCommerce 1881 Integration', 'woo1881' ); ?></h2>
+		<p><?php esc_html_e( 'Start using 1881 integration in checkout by providing your subscription key below.', 'woo1881' ); ?></p>
 		<p>
 			<?php
 			\printf(
 				'%s <a href="%s" target="_blank">api1881.no</a> %s',
-				\esc_html__( 'To find or generate a subscription key, log into', WOO1881_PLUGIN_DOMAIN ),
+				esc_html__( 'To find or generate a subscription key, log into', 'woo1881' ),
 				\esc_url( 'https://www.api1881.no/' ),
-				\esc_html__( 'and navigate to your profile to find your subscriptions. Either create a new set of API keys, or provide the primary key for an existing one.', WOO1881_PLUGIN_DOMAIN )
+				esc_html__( 'and navigate to your profile to find your subscriptions. Either create a new set of API keys, or provide the primary key for an existing one.', 'woo1881' )
 			);
 			?>
 		</p>
@@ -68,14 +68,14 @@ function initialize_admin_settings() {
 
 	\add_settings_section(
 		'woo1881_authentication',
-		\esc_html__( '1881 Authentication', WOO1881_PLUGIN_DOMAIN ),
+		esc_html__( '1881 Authentication', 'woo1881' ),
 		'__return_null',
 		$option,
 	);
 
 	\add_settings_field(
 		'1881_subscription_key',
-		\esc_html__( 'Subscription key (primary)', WOO1881_PLUGIN_DOMAIN ),
+		esc_html__( 'Subscription key (primary)', 'woo1881' ),
 		__NAMESPACE__ . '\\setting_text_element_callback',
 		$option,
 		'woo1881_authentication',
@@ -88,14 +88,14 @@ function initialize_admin_settings() {
 
 	\add_settings_section(
 		'woo1881_checkout_settings',
-		\esc_html__( 'Checkout Settings', WOO1881_PLUGIN_DOMAIN ),
+		esc_html__( 'Checkout Settings', 'woo1881' ),
 		'__return_null',
 		$option,
 	);
 
 	\add_settings_field(
 		'1881_checkout_description',
-		\esc_html__( 'Checkout text', WOO1881_PLUGIN_DOMAIN ),
+		esc_html__( 'Checkout text', 'woo1881' ),
 		__NAMESPACE__ . '\\setting_textarea_element_callback',
 		$option,
 		'woo1881_checkout_settings',
@@ -105,7 +105,7 @@ function initialize_admin_settings() {
 			'width'       => '100',
 			'height'      => '4',
 			'default'     => isset( $defaults['1881_checkout_description'] ) ? $defaults['1881_checkout_description'] : '',
-			'description' => \esc_html__( 'The text shown in checkout before the phone field.', WOO1881_PLUGIN_DOMAIN ),
+			'description' => esc_html__( 'The text shown in checkout before the phone field.', 'woo1881' ),
 		]
 	);
 

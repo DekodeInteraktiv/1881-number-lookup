@@ -46,7 +46,7 @@ function rest_perform_search( \WP_REST_Request $request = null ) {
 	if ( empty( $phone ) ) {
 		return new \WP_REST_Response( [
 			'success' => false,
-			'message' => \esc_html__( 'No phone number provided', WOO1881_PLUGIN_DOMAIN ),
+			'message' => esc_html__( 'No phone number provided', 'woo1881' ),
 		], 200 );
 	}
 
@@ -54,19 +54,16 @@ function rest_perform_search( \WP_REST_Request $request = null ) {
 	if ( empty( $phone ) ) {
 		return new \WP_REST_Response( [
 			'success' => false,
-			'message' => \esc_html__( 'Phone number failed validation', WOO1881_PLUGIN_DOMAIN ),
+			'message' => esc_html__( 'Phone number failed validation', 'woo1881' ),
 		], 200 );
 	}
 
 	$transient_key = 'woo1881_phonelookup_' . $phone;
 
-	// TODO: Set this back when done debugging.
-	// MINUTE_IN_SECONDS * 30
-
 	$search_results = \get_transient( $transient_key );
 	if ( false === $search_results ) {
 		$search_results = do_1881_api_phone_lookup( $phone );
-		\set_transient( $transient_key, $search_results, \apply_filters( 'woo1881_cache_phone_lookup_time', MINUTE_IN_SECONDS * 10000 ) );
+		\set_transient( $transient_key, $search_results, \apply_filters( 'woo1881_cache_phone_lookup_time', MINUTE_IN_SECONDS * 30 ) );
 	}
 
 	$search_results = \apply_filters( 'woo1881_contacts_from_lookup', $search_results, $phone );
@@ -188,38 +185,6 @@ function parse_contactinfo_for_frontend( array $search_results ): array {
 	}
 
 	return \apply_filters( 'woo1881_contacts_formatted', $formatted, $search_results );
-}
-
-/***
- * Main render of checkout HTML output.
- *
- * @return string
- */
-function render_checkout_lookup_html(): string {
-	$settings = \get_option( 'woo1881_admin_settings' );
-
-	// If subscription key is not provided, don't output anything.
-	if ( empty( $settings['1881_subscription_key'] ) ) {
-		return '';
-	}
-
-	$is_block      = is_block_checkout();
-	$wrapper_class = $is_block ? 'block-checkout' : 'legacy-checkout';
-
-	$output = \sprintf(
-		'<div class="woo1881-lookup %1$s" id="woo1881-lookup">
-			<p class="woo1881-description">%2$s</p>
-			<div class="woo1881-input-container wc-block-components-text-input">
-				<label for="woo1881-phone-lookup">%3$s</label>
-				<input type="tel" id="woo1881-phone-lookup" class="woo1881-lookup-input" autocapitalize="characters" autocomplete="tel" aria-label="%3$s" aria-invalid="false" />
-			</div>
-		</div>',
-		\esc_attr( $wrapper_class ),
-		\wp_kses_post( $settings['1881_checkout_description'] ),
-		\esc_html__( 'Phone number for 1881 lookup', WOO1881_PLUGIN_DOMAIN )
-	);
-
-	return \apply_filters( 'woo1881_checkout_html', $output, $settings, $is_block );
 }
 
 /***

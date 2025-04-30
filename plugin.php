@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:          WooCommerce 1881 Integration
- * Plugin URI:           https://www.procomsoftsol.com
+ * Plugin URI:           https://www.dekode.no
  * Description:          Adds lookup of adress and contact information from 1881 in WooCommerce checkout.
  * Author:               Dekode
  * Author URI:           https://www.dekode.no
@@ -12,7 +12,6 @@
  * Domain Path:          /languages
  * Requires Plugins:     woocommerce
  * WC requires at least: 8.2
- * WC tested up to:      9.6
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,7 +26,6 @@ defined( 'ABSPATH' ) || exit;
 define( 'WOO1881_FILE', __FILE__ );
 define( 'WOO1881_PATH', __DIR__ );
 define( 'WOO1881_URL', \plugins_url( '', __FILE__ ) );
-define( 'WOO1881_PLUGIN_DOMAIN', 'woo1881' );
 
 /***
  * Check if WooCommerce is active before running code.
@@ -44,7 +42,7 @@ if ( \in_array( 'woocommerce/woocommerce.php', \apply_filters( 'active_plugins',
 function display_woo_not_installed_notice() {
 	?>
 	<div class="error">
-		<p><?php echo \esc_html__( 'WooCommerce 1881 requires WooCommerce. Please install or activate WooCommerce', WOO1881_PLUGIN_DOMAIN ); ?></p>
+		<p><?php echo esc_html__( 'WooCommerce 1881 requires WooCommerce. Please install or activate WooCommerce', 'woo1881' ); ?></p>
 	</div>
 	<?php
 }

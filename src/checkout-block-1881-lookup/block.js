@@ -13,8 +13,10 @@ const Block = ({ children, checkoutExtensionData }) => {
 	const [optionsData, setOptionsData] = useState([]);
 	const [autocompleteVisible, setAutocompleteVisible] = useState(false);
 
+	// Block settings.
 	const keyUpDelayTime = window.wcSettings['checkout-block-1881-lookup_data'].keyup_delay_ms ?? 500;
 	const paragraphText = window.wcSettings['checkout-block-1881-lookup_data'].description_text;
+	const inputLabel = window.wcSettings['checkout-block-1881-lookup_data'].lookup_label;
 
 	// Debounce input ("buffer", aka don't trigger request on every keystroke).
 	useEffect(() => {
@@ -27,12 +29,7 @@ const Block = ({ children, checkoutExtensionData }) => {
 		return () => clearTimeout(delayInputTimeoutId);
 	}, [phone]);
 
-	// This is how to update addresses!!
 	const { CART_STORE_KEY } = window.wc.wcBlocksData;
-	/*const cartStore = useSelect((select) => select(CART_STORE_KEY));  // Don't need this, unless I need the below
-	const customerData = cartStore.getCustomerData();  // <--- current info!
-	console.log(customerData);*/
-
 	const { setBillingAddress, setShippingAddress } = dispatch(CART_STORE_KEY);
 
 	const setAddresses = (contactInfo) => {
@@ -107,7 +104,7 @@ const Block = ({ children, checkoutExtensionData }) => {
 		<div className="woo1881-lookup block-checkout" id="woo1881-lookup">
 			<p className="woo1881-description">{paragraphText}</p>
 			<div className={inputContainerClasses}>
-				<label htmlFor="woo1881-phone-lookup">{__( 'Phone number for 1881 lookup', 'woo1881')}</label>
+				<label htmlFor="woo1881-phone-lookup">{inputLabel}</label>
 				<input
 					type="tel"
 					onChange={inputChangeEvent}
@@ -116,7 +113,7 @@ const Block = ({ children, checkoutExtensionData }) => {
 					className="woo1881-lookup-input"
 					autocapitalize="characters"
 					autocomplete="tel"
-					aria-label={__( 'Phone number for 1881 lookup', 'woo1881')}
+					aria-label={inputLabel}
 					aria-invalid="false"
 				/>
 				{autocompleteVisible && (

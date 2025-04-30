@@ -28,6 +28,34 @@ function legacy_checkout_html_output() {
 }
 
 /***
+ * Legacy checkout HTML output.
+ *
+ * @return string
+ */
+function render_checkout_lookup_html(): string {
+	$settings = get_saved_settings();
+
+	// If subscription key is not provided, don't output anything.
+	if ( empty( $settings['1881_subscription_key'] ) ) {
+		return '';
+	}
+
+	$output = \sprintf(
+		'<div class="woo1881-lookup legacy-checkout" id="woo1881-lookup">
+			<p class="woo1881-description">%1$s</p>
+			<div class="woo1881-input-container wc-block-components-text-input">
+				<label for="woo1881-phone-lookup">%2$s</label>
+				<input type="tel" id="woo1881-phone-lookup" class="woo1881-lookup-input" autocapitalize="characters" autocomplete="tel" aria-label="%2$s" aria-invalid="false" />
+			</div>
+		</div>',
+		\wp_kses_post( $settings['1881_checkout_description'] ),
+		esc_html__( 'Phone number for 1881 lookup', 'woo1881' )
+	);
+
+	return \apply_filters( 'woo1881_legacy_checkout_html', $output, $settings );
+}
+
+/***
  * For legacy checkout, enqueue frontend script.
  */
 function enqueue_legacy_checkout_frontend_assets() {
@@ -57,7 +85,7 @@ function enqueue_legacy_checkout_frontend_assets() {
 		\wp_localize_script(
 			'woo1881-frontend',
 			'Woo1881',
-			\apply_filters( 'woo1881_script_localized_variables', [
+			\apply_filters( 'woo1881_script_localized_variables_legacy', [
 				'phone_lookup_rest' => \get_rest_url( null, 'woo1881/v1/phone_lookup' ),
 				'keyup_delay_ms'    => \apply_filters( 'woo1881_keyup_delay_ms', 500 ),
 			] )

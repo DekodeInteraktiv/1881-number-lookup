@@ -39,6 +39,7 @@ class Blocks_1881_Integration implements IntegrationInterface {
 			'phone_lookup_rest' => \get_rest_url( null, 'woo1881/v1/phone_lookup' ),
 			'keyup_delay_ms'    => \apply_filters( 'woo1881_keyup_delay_ms', 500 ),
 			'description_text'  => ! empty( $settings['1881_checkout_description'] ) ? $settings['1881_checkout_description'] : '',
+			'lookup_label'      => esc_html__( 'Phone number for 1881 lookup', 'woo1881'),
 		];
 	}
 

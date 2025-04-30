@@ -6,13 +6,14 @@ import './view.css';
 export const Edit = ({ attributes, setAttributes }) => {
 	const blockProps = useBlockProps();
 	const paragraphText = window.wcSettings['checkout-block-1881-lookup_data'].description_text;
+	const inputLabel = window.wcSettings['checkout-block-1881-lookup_data'].lookup_label;
 
 	return (
 		<div {...blockProps}>
 			<div className="woo1881-lookup block-checkout" id="woo1881-lookup">
 				<p className="woo1881-description">{paragraphText}</p>
 				<div className="woo1881-input-container wc-block-components-text-input">
-					<label htmlFor="woo1881-phone-lookup">{__( 'Phone number for 1881 lookup', 'woo1881')}</label>
+					<label htmlFor="woo1881-phone-lookup">{inputLabel}</label>
 					<input
 						type="tel"
 						value=""
@@ -20,7 +21,7 @@ export const Edit = ({ attributes, setAttributes }) => {
 						className="woo1881-lookup-input"
 						autocapitalize="characters"
 						autocomplete="tel"
-						aria-label={__( 'Phone number for 1881 lookup', 'woo1881')}
+						aria-label={inputLabel}
 						aria-invalid="false"
 						disabled="disabled"
 					/>
