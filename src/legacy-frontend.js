@@ -1,4 +1,6 @@
-jQuery(function($) {
+/* global jQuery */
+
+jQuery(function ($) {
 	const woo1881wrapper = $('.woo1881-lookup.legacy-checkout');
 	if (!woo1881wrapper || !window.Woo1881) {
 		return;
@@ -9,17 +11,17 @@ jQuery(function($) {
 
 	// Helper method to "buffer" keyup event on input (aka don't try to send request on every single keystroke).
 	const keyupDelay = (fn, ms) => {
-		let timer = 0
-		return function(...args) {
-			clearTimeout(timer)
-			timer = setTimeout(fn.bind(this, ...args), ms || 0)
-		}
+		let timer = 0;
+		return function (...args) {
+			clearTimeout(timer);
+			timer = setTimeout(fn.bind(this, ...args), ms || 0);
+		};
 	};
 
 	// Delete autocomplete HTML, if exists.
 	const clearAutocomplete = () => {
 		const autocompleteContainer = woo1881wrapper.find('.woo1881-autocomplete-container');
-		if ( autocompleteContainer.length > 0 ) {
+		if (autocompleteContainer.length > 0) {
 			autocompleteContainer.remove();
 		}
 	};
@@ -46,18 +48,20 @@ jQuery(function($) {
 		const url = `${window.Woo1881.phone_lookup_rest}?phone=${phoneNumber}`;
 		fetch(url, {
 			method: 'GET',
-		}).then((response) => {
-			return response.json();
-		}).then((data) => {
-			if (data.success && data.search_result.length > 0) {
-				autocompleteResults = data.search_result;
-				if (autocompleteResults.length == 1) {
-					fillInInfoAndUpdate(autocompleteResults[0]);
-				} else {
-					createAutoomplete();
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				if (data.success && data.search_result.length > 0) {
+					autocompleteResults = data.search_result;
+					if (autocompleteResults.length === 1) {
+						fillInInfoAndUpdate(autocompleteResults[0]);
+					} else {
+						createAutoomplete();
+					}
 				}
-			}
-		});
+			});
 	};
 
 	// Fill in all checkout inputs with values.
@@ -115,7 +119,7 @@ jQuery(function($) {
 		}
 
 		// Company.
-		if (contactInfo.type == 'Company') {
+		if (contactInfo.type === 'Company') {
 			const inputBillingCompany = checkoutForm.find('input[name="billing_company"]');
 			if (inputBillingCompany.length > 0) {
 				inputBillingCompany.val(contactInfo.company_name);
@@ -130,19 +134,23 @@ jQuery(function($) {
 		$(document.body).trigger('update_checkout');
 	};
 
-	$(document).on('click', '.woo1881-autocomplete-item', function() {
+	$(document).on('click', '.woo1881-autocomplete-item', function () {
 		const hitIndex = parseInt($(this).data('resultIndex'));
 		if (typeof autocompleteResults[hitIndex] !== 'undefined') {
 			fillInInfoAndUpdate(autocompleteResults[hitIndex]);
-			clearAutocomplete();  // Remove autocomplete ("close" dropdown).
+			clearAutocomplete(); // Remove autocomplete ("close" dropdown).
 		}
 	});
 
 	// Detect keyup on phone number input with delay, perform search if minimum 8 numbers.
-	$(document).on('keyup', '#woo1881-phone-lookup', keyupDelay(function() {
-		phoneNumber = $(this).val().replace(/\D/g, '');  // Ensure numbers only.
-		if (phoneNumber.length >= 8) {
-			lookupPhoneNumber();
-		}
-	}, window.Woo1881.keyup_delay_ms));
+	$(document).on(
+		'keyup',
+		'#woo1881-phone-lookup',
+		keyupDelay(function () {
+			phoneNumber = $(this).val().replace(/\D/g, ''); // Ensure numbers only.
+			if (phoneNumber.length >= 8) {
+				lookupPhoneNumber();
+			}
+		}, window.Woo1881.keyup_delay_ms)
+	);
 });

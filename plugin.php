@@ -12,6 +12,7 @@
  * Domain Path:          /languages
  * Requires Plugins:     woocommerce
  * WC requires at least: 8.2
+ * WC tested up to:      9.7
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -30,7 +31,7 @@ define( 'WOO1881_URL', \plugins_url( '', __FILE__ ) );
 /***
  * Check if WooCommerce is active before running code.
  */
-if ( \in_array( 'woocommerce/woocommerce.php', \apply_filters( 'active_plugins', \get_option( 'active_plugins' ) ) ) || ( \is_multisite() && \array_key_exists( 'woocommerce/woocommerce.php', \get_site_option( 'active_sitewide_plugins' ) ) ) ) {
+if ( \in_array( 'woocommerce/woocommerce.php', \apply_filters( 'active_plugins', \get_option( 'active_plugins' ) ), true ) || ( \is_multisite() && \array_key_exists( 'woocommerce/woocommerce.php', \get_site_option( 'active_sitewide_plugins' ) ) ) ) {
 	require_once WOO1881_PATH . '/includes/core.php';
 } else {
 	\add_action( 'admin_notices', __NAMESPACE__ . '\\display_woo_not_installed_notice' );

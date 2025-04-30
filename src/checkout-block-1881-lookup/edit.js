@@ -1,9 +1,14 @@
+/**
+ * WordPress dependencies
+ */
 import { useBlockProps } from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
 
+/**
+ * Internal dependencies
+ */
 import './view.css';
 
-export const Edit = ({ attributes, setAttributes }) => {
+export const Edit = () => {
 	const blockProps = useBlockProps();
 	const paragraphText = window.wcSettings['checkout-block-1881-lookup_data'].description_text;
 	const inputLabel = window.wcSettings['checkout-block-1881-lookup_data'].lookup_label;
@@ -19,8 +24,8 @@ export const Edit = ({ attributes, setAttributes }) => {
 						value=""
 						id="woo1881-phone-lookup"
 						className="woo1881-lookup-input"
-						autocapitalize="characters"
-						autocomplete="tel"
+						autoCapitalize="characters"
+						autoComplete="tel"
 						aria-label={inputLabel}
 						aria-invalid="false"
 						disabled="disabled"

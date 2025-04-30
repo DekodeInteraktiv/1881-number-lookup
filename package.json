@@ -40,5 +40,8 @@
 			"no-descending-specificity": null,
 			"no-invalid-position-at-import-rule": null
 		}
+	},
+	"dependencies": {
+		"react": "^18.3.1"
 	}
 }

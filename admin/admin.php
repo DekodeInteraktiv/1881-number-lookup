@@ -148,6 +148,11 @@ function setting_text_element_callback( array $args ) {
 	}
 }
 
+/***
+ * Output standard textarea element.
+ *
+ * @param array $args Arguments to setting.
+ */
 function setting_textarea_element_callback( array $args ) {
 	$id     = $args['id'];
 	$width  = ! empty( $args['width'] ) ? $args['width'] : '';
@@ -186,8 +191,8 @@ function setting_textarea_element_callback( array $args ) {
 function validate_settings( array $input ): array {
 	$output = [];
 	foreach ( $input as $key => $value ) {
-		if ( isset( $input[$key] ) ) {
-			if ( \is_array( $input[$key] ) ) {
+		if ( isset( $input[ $key ] ) ) {
+			if ( \is_array( $input[ $key ] ) ) {
 				foreach ( $input[ $key ] as $sub_key => $sub_value ) {
 					$output[ $key ][ $sub_key ] = $input[ $key ][ $sub_key ];
 				}

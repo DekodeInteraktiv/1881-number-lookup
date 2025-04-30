@@ -24,7 +24,7 @@ function initialize_legacy_setup() {
  * Output HTML (shared) in checkout.
  */
 function legacy_checkout_html_output() {
-	echo render_checkout_lookup_html();
+	echo render_checkout_lookup_html();  // phpcs:ignore
 }
 
 /***

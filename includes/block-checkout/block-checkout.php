@@ -20,7 +20,7 @@ function initialize_checkout_block_setup() {
 
 	// Register WooCommerce Integration block in registry.
 	require_once WOO1881_PATH . '/includes/block-checkout/class-blocks-1881-integration.php';
-	\add_action( 'woocommerce_blocks_checkout_block_registration', function( $integration_registry ) {
+	\add_action( 'woocommerce_blocks_checkout_block_registration', function ( $integration_registry ) {
 		$integration_registry->register( new Blocks_1881_Integration() );
 	} );
 }

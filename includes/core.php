@@ -23,7 +23,7 @@ function add_rest_route() {
 		'woo1881/v1',
 		'/phone_lookup',
 		[
-			'method'              => \WP_REST_SERVER::READABLE,
+			'method'              => \WP_REST_Server::READABLE,
 			'callback'            => __NAMESPACE__ . '\\rest_perform_search',
 			'permission_callback' => '__return_true',
 			'args'                => [
@@ -38,6 +38,8 @@ function add_rest_route() {
 
 /**
  * Return of REST response for searching 1881.
+ *
+ * @param \WP_REST_Request $request The request object.
  *
  * @return \WP_REST_Response
  */
@@ -153,7 +155,7 @@ function parse_contactinfo_for_frontend( array $search_results ): array {
 
 			// Build display in autocomplete.
 			$new_item['autocomplete_display'] = $item['name'] . ' (';
-			$truncated_address = ( ! empty( $item['legalInformation']['postAddress'] ) ) ? $item['legalInformation']['postAddress']['addressString'] : $item['legalInformation']['address']['addressString'];
+			$truncated_address                = ( ! empty( $item['legalInformation']['postAddress'] ) ) ? $item['legalInformation']['postAddress']['addressString'] : $item['legalInformation']['address']['addressString'];
 			if ( \strlen( $truncated_address ) > $address_truncate_length ) {
 				$truncated_address = \substr( $truncated_address, 0, $address_truncate_length ) . '...';
 			}
@@ -174,7 +176,7 @@ function parse_contactinfo_for_frontend( array $search_results ): array {
 
 			// Build display in autocomplete.
 			$new_item['autocomplete_display'] = $item['name'] . ' (';
-			$truncated_address               = $item['geography']['address']['addressString'];
+			$truncated_address                = $item['geography']['address']['addressString'];
 			if ( \strlen( $truncated_address ) > $address_truncate_length ) {
 				$truncated_address = \substr( $truncated_address, 0, $address_truncate_length ) . '...';
 			}

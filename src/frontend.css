@@ -9,6 +9,7 @@
     position: relative;
 
 	&.legacy-checkout {
+
 		& .woo1881-lookup-input {
 			font-size: var(--wp--preset--font-size--small);
 			padding: .9rem 1.1rem;
