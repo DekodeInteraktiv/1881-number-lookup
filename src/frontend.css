@@ -12,11 +12,11 @@
 		align-items: center;
 		display: flex;
 		flex-direction: row;
-		gap: 30px;
+		gap: 16px;
 
 		& .woo1881-logo {
-			height: 70px;
-			width: 70px;
+			height: 32px;
+			width: 32px;
 		}
 	}
 

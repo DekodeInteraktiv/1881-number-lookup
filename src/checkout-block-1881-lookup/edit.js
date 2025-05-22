@@ -21,15 +21,15 @@ export const Edit = () => {
 						alignItems: 'center',
 						display: 'flex',
 						flexDirection: 'row',
-						gap: '30px',
+						gap: '16px',
 					}}
 				>
 					<div
 						className="woo1881-logo"
 						dangerouslySetInnerHTML={{ __html: logo1881 }}
 						style={{
-							height: '70px',
-							width: '70px',
+							height: '32px',
+							width: '32px',
 						}}
 					></div>
 					<div
