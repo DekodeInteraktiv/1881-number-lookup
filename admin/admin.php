@@ -7,7 +7,7 @@
 
 namespace Woo1881\Admin;
 
-\add_action( 'admin_menu', __NAMESPACE__ . '\\register_admin_menu', 99 );
+use function Woo1881\get_1881_logo;\add_action( 'admin_menu', __NAMESPACE__ . '\\register_admin_menu', 99 );
 \add_action( 'admin_init', __NAMESPACE__ . '\\initialize_admin_settings' );
 
 /***
@@ -30,8 +30,13 @@ function register_admin_menu() {
 function custom_admin_page_content() {
 	?>
 	<div class="wrap woocommerce">
-		<h2><?php esc_html_e( 'WooCommerce 1881 Integration', 'woo1881' ); ?></h2>
-		<p><?php esc_html_e( 'Start using 1881 integration in checkout by providing your subscription key below.', 'woo1881' ); ?></p>
+		<div class="woo1881-admin-header">
+			<div class="woo1881-logo"><?php echo get_1881_logo(); ?></div>
+			<div class="woo1881-header-content">
+				<h2><?php esc_html_e( 'WooCommerce 1881 Integration', 'woo1881' ); ?></h2>
+				<p><?php esc_html_e( 'Start using 1881 integration in checkout by providing your subscription key below.', 'woo1881' ); ?></p>
+			</div>
+		</div>
 		<p>
 			<?php
 			\printf(
@@ -51,6 +56,22 @@ function custom_admin_page_content() {
 		</form>
 		<div class="woo1881-test-authentication"></div>
 	</div>
+	<style>
+		.woo1881-admin-header {
+			display: flex;
+			gap: 20px;
+		}
+		.woo1881-logo {
+			height: 70px;
+			width: 70px;
+		}
+		.woo1881-header-content {
+			flex: 1;
+		}
+		.woo1881-header-content h2 {
+			margin-top: 0.5em;
+		}
+	</style>
 	<?php
 }
 
