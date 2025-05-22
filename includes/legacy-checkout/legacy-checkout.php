@@ -43,13 +43,17 @@ function render_checkout_lookup_html(): string {
 	$output = \sprintf(
 		'<div class="woo1881-lookup legacy-checkout" id="woo1881-lookup">
 			<p class="woo1881-description">%1$s</p>
-			<div class="woo1881-input-container wc-block-components-text-input">
-				<label for="woo1881-phone-lookup">%2$s</label>
-				<input type="tel" id="woo1881-phone-lookup" class="woo1881-lookup-input" autocapitalize="characters" autocomplete="tel" aria-label="%2$s" aria-invalid="false" />
+			<div class="woo1881-logo-input-container">
+				<div class="woo1881-logo">%3$s</div>
+				<div class="woo1881-input-container wc-block-components-text-input">
+					<label for="woo1881-phone-lookup">%2$s</label>
+					<input type="tel" id="woo1881-phone-lookup" class="woo1881-lookup-input" autocapitalize="characters" autocomplete="tel" aria-label="%2$s" aria-invalid="false" />
+				</div>
 			</div>
 		</div>',
 		\wp_kses_post( $settings['1881_checkout_description'] ),
-		esc_html__( 'Phone number for 1881 lookup', 'woo1881' )
+		esc_html__( 'Phone number for 1881 lookup', 'woo1881' ),
+		get_1881_logo()  // phpcs:ignore
 	);
 
 	return \apply_filters( 'woo1881_legacy_checkout_html', $output, $settings );

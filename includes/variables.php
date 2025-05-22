@@ -47,3 +47,12 @@ function get_subscription_key(): string {
 function get_1881_api_base_url(): string {
 	return 'https://services.api1881.no/';
 }
+
+/***
+ * Returns 1881 SVG logo.
+ *
+ * @return string
+ */
+function get_1881_logo(): string {
+	return \file_get_contents( WOO1881_PATH . '/assets/svg/1881-logo.svg' );  // phpcs:ignore
+}

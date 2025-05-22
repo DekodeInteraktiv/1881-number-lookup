@@ -8,6 +8,18 @@
 .woo1881-lookup {
     position: relative;
 
+	& .woo1881-logo-input-container {
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		gap: 30px;
+
+		& .woo1881-logo {
+			height: 70px;
+			width: 70px;
+		}
+	}
+
 	&.legacy-checkout {
 
 		& .woo1881-lookup-input {
@@ -18,7 +30,12 @@
 
 	& .woo1881-input-container {
 		display: flex;
+		flex: 1;
 		flex-direction: column;
+
+		&.wc-block-components-text-input {
+			margin-top: 0;
+		}
 	}
 
 	& .woo1881-autocomplete-container {

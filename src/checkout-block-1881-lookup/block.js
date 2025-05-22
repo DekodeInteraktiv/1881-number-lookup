@@ -28,6 +28,7 @@ const Block = () => {
 	const keyUpDelayTime = window.wcSettings['checkout-block-1881-lookup_data'].keyup_delay_ms ?? 500;
 	const paragraphText = window.wcSettings['checkout-block-1881-lookup_data'].description_text;
 	const inputLabel = window.wcSettings['checkout-block-1881-lookup_data'].lookup_label;
+	const logo1881 = window.wcSettings['checkout-block-1881-lookup_data'].logo_1881_svg;
 
 	// Debounce input ("buffer", aka don't trigger request on every keystroke).
 	useEffect(() => {
@@ -116,32 +117,35 @@ const Block = () => {
 	return (
 		<div className="woo1881-lookup block-checkout" id="woo1881-lookup">
 			<p className="woo1881-description">{paragraphText}</p>
-			<div className={inputContainerClasses}>
-				<label htmlFor="woo1881-phone-lookup">{inputLabel}</label>
-				<input
-					type="tel"
-					onChange={inputChangeEvent}
-					value={phone}
-					id="woo1881-phone-lookup"
-					className="woo1881-lookup-input"
-					autoCapitalize="characters"
-					autoComplete="tel"
-					aria-label={inputLabel}
-					aria-invalid="false"
-				/>
-				{autocompleteVisible && (
-					<div className="woo1881-autocomplete-container">
-						{optionsData.map((x, index) => (
-							<div // eslint-disable-line
-								className="woo1881-autocomplete-item"
-								onClick={() => clickedAutocompleteItem(index)}
-								key={index}
-							>
-								{x.autocomplete_display}
-							</div>
-						))}
-					</div>
-				)}
+			<div className="woo1881-logo-input-container">
+				<div className="woo1881-logo" dangerouslySetInnerHTML={{ __html: logo1881 }}></div>
+				<div className={inputContainerClasses}>
+					<label htmlFor="woo1881-phone-lookup">{inputLabel}</label>
+					<input
+						type="tel"
+						onChange={inputChangeEvent}
+						value={phone}
+						id="woo1881-phone-lookup"
+						className="woo1881-lookup-input"
+						autoCapitalize="characters"
+						autoComplete="tel"
+						aria-label={inputLabel}
+						aria-invalid="false"
+					/>
+					{autocompleteVisible && (
+						<div className="woo1881-autocomplete-container">
+							{optionsData.map((x, index) => (
+								<div // eslint-disable-line
+									className="woo1881-autocomplete-item"
+									onClick={() => clickedAutocompleteItem(index)}
+									key={index}
+								>
+									{x.autocomplete_display}
+								</div>
+							))}
+						</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);

@@ -45,6 +45,7 @@ class Blocks_1881_Integration implements IntegrationInterface {
 			'keyup_delay_ms'    => \apply_filters( 'woo1881_keyup_delay_ms', 500 ),
 			'description_text'  => ! empty( $settings['1881_checkout_description'] ) ? $settings['1881_checkout_description'] : '',
 			'lookup_label'      => esc_html__( 'Phone number for 1881 lookup', 'woo1881' ),
+			'logo_1881_svg'     => get_1881_logo(),
 		];
 	}
 
