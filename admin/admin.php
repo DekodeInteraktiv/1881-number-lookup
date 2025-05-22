@@ -7,7 +7,9 @@
 
 namespace Woo1881\Admin;
 
-use function Woo1881\get_1881_logo;\add_action( 'admin_menu', __NAMESPACE__ . '\\register_admin_menu', 99 );
+use function Woo1881\get_1881_logo;
+
+\add_action( 'admin_menu', __NAMESPACE__ . '\\register_admin_menu', 99 );
 \add_action( 'admin_init', __NAMESPACE__ . '\\initialize_admin_settings' );
 
 /***
