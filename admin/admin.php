@@ -33,7 +33,7 @@ function custom_admin_page_content() {
 	?>
 	<div class="wrap woocommerce">
 		<div class="woo1881-admin-header">
-			<div class="woo1881-logo"><?php echo get_1881_logo(); ?></div>
+			<div class="woo1881-logo"><?php echo get_1881_logo();  // phpcs:ignore ?></div>
 			<div class="woo1881-header-content">
 				<h2><?php esc_html_e( 'WooCommerce 1881 Integration', 'woo1881' ); ?></h2>
 				<p><?php esc_html_e( 'Start using 1881 integration in checkout by providing your subscription key below.', 'woo1881' ); ?></p>

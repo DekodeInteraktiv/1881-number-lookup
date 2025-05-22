@@ -18,24 +18,25 @@ export const Edit = () => {
 				<div
 					className="woo1881-logo-input-container"
 					style={{
-						alignItems: "center",
-						display: "flex",
-						flexDirection: "row",
-						gap: "30px",
+						alignItems: 'center',
+						display: 'flex',
+						flexDirection: 'row',
+						gap: '30px',
 					}}
 				>
-					<div className="woo1881-logo"
-					     dangerouslySetInnerHTML={{ __html: logo1881 }}
-					     style={{
-					     	height: "70px",
-					        width: "70px",
-					     }}
-				     ></div>
+					<div
+						className="woo1881-logo"
+						dangerouslySetInnerHTML={{ __html: logo1881 }}
+						style={{
+							height: '70px',
+							width: '70px',
+						}}
+					></div>
 					<div
 						className="woo1881-input-container wc-block-components-text-input"
 						style={{
-							flex: "1",
-							marginTop: "0",
+							flex: '1',
+							marginTop: '0',
 						}}
 					>
 						<label htmlFor="woo1881-phone-lookup">{inputLabel}</label>
