@@ -40,6 +40,24 @@ function get_subscription_key(): string {
 }
 
 /***
+ * Returns keyup ms delay after typing and before performing search.
+ *
+ * @return int
+ */
+function get_keyup_delay(): int {
+	return \apply_filters( 'woo1881_keyup_delay_ms', 250 );
+}
+
+/***
+ * Returns the valid lengths of phone numbers before performing 1881 search.
+ *
+ * @return int
+ */
+function get_phone_valid_lengths(): array {
+	return \apply_filters( 'woo1881_phone_valid_lengths', [ 5, 8 ] );
+}
+
+/***
  * Returns 1881 API base URL.
  *
  * @return string

@@ -1,4 +1,5 @@
 :where(body) {
+	--woo1881-autocomplete-maxheight: 300px;
 	--woo1881-autocomplete-background: #fbfbfb;
 	--woo1881-autocomplete-border-color: rgb(118, 118, 188);
 	--woo1881-autocomplete-text-color: var(--wp--preset--color--black);
@@ -22,6 +23,10 @@
 
 	&.legacy-checkout {
 
+		& .woo1881-input-container {
+			position: relative;
+		}
+
 		& .woo1881-lookup-input {
 			font-size: var(--wp--preset--font-size--small);
 			padding: .9rem 1.1rem;
@@ -44,6 +49,9 @@
 		border-radius: 0 0 4px 4px;
 		border-top: none;
 		left: 0;
+		max-height: var(--woo1881-autocomplete-maxheight);
+		overflow-x: hidden;
+		overflow-y: auto;
 		position: absolute;
 		right: 0;
 		top: 100%;
