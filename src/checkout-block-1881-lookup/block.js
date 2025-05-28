@@ -23,9 +23,11 @@ const Block = () => {
 	const [debouncedPhone, setDebouncedPhone] = useState(''); // eslint-disable-line
 	const [optionsData, setOptionsData] = useState([]);
 	const [autocompleteVisible, setAutocompleteVisible] = useState(false);
+	const [delayedValidation, setDelayedValidation] = useState(false);
 
 	// Block settings.
-	const keyUpDelayTime = window.wcSettings['checkout-block-1881-lookup_data'].keyup_delay_ms ?? 500;
+	const keyUpDelayTime = window.wcSettings['checkout-block-1881-lookup_data'].keyup_delay_ms;
+	const phoneValidLengths = window.wcSettings['checkout-block-1881-lookup_data'].valid_phone_lengths;
 	const paragraphText = window.wcSettings['checkout-block-1881-lookup_data'].description_text;
 	const inputLabel = window.wcSettings['checkout-block-1881-lookup_data'].lookup_label;
 	const logo1881 = window.wcSettings['checkout-block-1881-lookup_data'].logo_1881_svg;
@@ -34,7 +36,7 @@ const Block = () => {
 	useEffect(() => {
 		const delayInputTimeoutId = setTimeout(() => {
 			setDebouncedPhone(phone);
-			if (phone.length >= 8) {
+			if (phoneValidLengths.includes(phone.length)) {
 				lookupPhoneNumber();
 			}
 		}, keyUpDelayTime);
@@ -44,35 +46,41 @@ const Block = () => {
 	const { CART_STORE_KEY } = window.wc.wcBlocksData;
 	const { setBillingAddress, setShippingAddress } = dispatch(CART_STORE_KEY);
 
+	const { VALIDATION_STORE_KEY } = window.wc.wcBlocksData;
+	const { showAllValidationErrors } = dispatch(VALIDATION_STORE_KEY);
+
 	const setAddresses = (contactInfo) => {
 		if (contactInfo) {
 			const shippingAddress = {
-				first_name: contactInfo.first_name,
-				last_name: contactInfo.last_name,
-				address_1: contactInfo.shipping_address.street_address,
-				city: contactInfo.shipping_address.city,
-				postcode: contactInfo.shipping_address.zip,
-				email: contactInfo.email,
+				first_name: contactInfo.first_name ?? '',
+				last_name: contactInfo.last_name ?? '',
+				address_1: contactInfo.shipping_address.street_address ?? '',
+				city: contactInfo.shipping_address.city ?? '',
+				postcode: contactInfo.shipping_address.zip ?? '',
+				email: contactInfo.email ?? '',
 				phone,
 			};
 			if (contactInfo.type === 'Company') {
-				shippingAddress.company = contactInfo.company_name;
+				shippingAddress.company = contactInfo.company_name ?? '';
 			}
 			const billingAddress = {
-				first_name: contactInfo.first_name,
-				last_name: contactInfo.last_name,
-				address_1: contactInfo.billing_address.street_address,
-				city: contactInfo.billing_address.city,
-				postcode: contactInfo.billing_address.zip,
+				first_name: contactInfo.first_name ?? '',
+				last_name: contactInfo.last_name ?? '',
+				address_1: contactInfo.billing_address.street_address ?? '',
+				city: contactInfo.billing_address.city ?? '',
+				postcode: contactInfo.billing_address.zip ?? '',
 				phone,
 			};
 			if (contactInfo.type === 'Company') {
-				billingAddress.company = contactInfo.company_name;
+				billingAddress.company = contactInfo.company_name ?? '';
 			}
 
 			// Update Woo addresses.
 			setShippingAddress(shippingAddress);
 			setBillingAddress(billingAddress);
+
+			// Update state to trigger a delayed validation check.
+			setDelayedValidation(true);
 		}
 	};
 
@@ -108,6 +116,20 @@ const Block = () => {
 		setPhone(formattedPhone);
 		setAutocompleteVisible(false);
 	};
+
+	/***
+	 * Trigger validation errors if any, after autofilling address from 1881.
+	 * Unfortunately at the time of making this, there is no reliable hook or event for when the addresses was indeed changed.
+	 * Woo does call dispatchCheckoutEvent() but it is not quite working. So only way atm is to use a timeout.
+	 */
+	useEffect(() => {
+		if (delayedValidation) {
+			setTimeout(() => {
+				showAllValidationErrors();
+			}, 500);
+		}
+		setDelayedValidation(false);
+	}, [delayedValidation, showAllValidationErrors]);
 
 	let inputContainerClasses = 'woo1881-input-container wc-block-components-text-input';
 	if (phone.length > 0) {

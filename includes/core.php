@@ -125,13 +125,41 @@ function parse_contactinfo_for_frontend( array $search_results ): array {
 			$new_item['orgno']        = $item['organizationNumber'];
 
 			// "address" is always used for shipping, and also for billing but only if "postAddress" is empty.
-			$address = [
-				'street_address' => $item['legalInformation']['address']['street'],
-				'zip'            => $item['legalInformation']['address']['postCode'],
-				'city'           => $item['legalInformation']['address']['postArea'],
-			];
-			if ( ! empty( $item['legalInformation']['address']['houseNumber'] ) ) {
-				$address['street_address'] .= ' ' . $item['legalInformation']['address']['houseNumber'];
+			if ( isset( $item['legalInformation'] ) ) {
+				$address = [
+					'street_address' => $item['legalInformation']['address']['street'],
+					'zip'            => $item['legalInformation']['address']['postCode'],
+					'city'           => $item['legalInformation']['address']['postArea'],
+				];
+
+				// Add house number and/or entrance.
+				if ( ! empty( $item['legalInformation']['address']['houseNumber'] ) ) {
+					$address['street_address'] .= ' ' . $item['legalInformation']['address']['houseNumber'];
+
+					if ( ! empty( $item['legalInformation']['address']['entrance'] ) ) {
+						$address['street_address'] .= $item['legalInformation']['address']['entrance'];
+					}
+				} elseif ( ! empty( $item['legalInformation']['address']['entrance'] ) ) {
+					$address['street_address'] .= ' ' . $item['legalInformation']['address']['entrance'];
+				}
+			} else {
+				// Not all companies have "legalInformation", so fallback to "geography".
+				$address = [
+					'street_address' => $item['geography']['address']['street'],
+					'zip'            => $item['geography']['address']['postCode'],
+					'city'           => $item['geography']['address']['postArea'],
+				];
+
+				// Add house number and/or entrance.
+				if ( ! empty( $item['geography']['address']['houseNumber'] ) ) {
+					$address['street_address'] .= ' ' . $item['geography']['address']['houseNumber'];
+
+					if ( ! empty( $item['geography']['address']['entrance'] ) ) {
+						$address['street_address'] .= $item['geography']['address']['entrance'];
+					}
+				} elseif ( ! empty( $item['geography']['address']['entrance'] ) ) {
+					$address['street_address'] .= $item['geography']['address']['entrance'];
+				}
 			}
 
 			if ( ! empty( $item['legalInformation']['postAddress'] ) ) {
@@ -155,7 +183,11 @@ function parse_contactinfo_for_frontend( array $search_results ): array {
 
 			// Build display in autocomplete.
 			$new_item['autocomplete_display'] = $item['name'] . ' (';
-			$truncated_address                = ( ! empty( $item['legalInformation']['postAddress'] ) ) ? $item['legalInformation']['postAddress']['addressString'] : $item['legalInformation']['address']['addressString'];
+			if ( isset( $item['legalInformation'] ) ) {
+				$truncated_address = ( ! empty( $item['legalInformation']['postAddress'] ) ) ? $item['legalInformation']['postAddress']['addressString'] : $item['legalInformation']['address']['addressString'];
+			} else {
+				$truncated_address = $item['geography']['address']['addressString'];
+			}
 			if ( \strlen( $truncated_address ) > $address_truncate_length ) {
 				$truncated_address = \substr( $truncated_address, 0, $address_truncate_length ) . '...';
 			}
@@ -168,9 +200,17 @@ function parse_contactinfo_for_frontend( array $search_results ): array {
 				'zip'            => $item['geography']['address']['postCode'],
 				'city'           => $item['geography']['address']['postArea'],
 			];
+			// Add house number and/or entrance.
 			if ( ! empty( $item['geography']['address']['houseNumber'] ) ) {
 				$address['street_address'] .= ' ' . $item['geography']['address']['houseNumber'];
+
+				if ( ! empty( $item['geography']['address']['entrance'] ) ) {
+					$address['street_address'] .= $item['geography']['address']['entrance'];
+				}
+			} elseif ( ! empty( $item['geography']['address']['entrance'] ) ) {
+				$address['street_address'] .= $item['geography']['address']['entrance'];
 			}
+
 			$new_item['billing_address']  = $address;
 			$new_item['shipping_address'] = $address;
 

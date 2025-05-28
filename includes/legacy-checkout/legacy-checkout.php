@@ -90,8 +90,9 @@ function enqueue_legacy_checkout_frontend_assets() {
 			'woo1881-frontend',
 			'Woo1881',
 			\apply_filters( 'woo1881_script_localized_variables_legacy', [
-				'phone_lookup_rest' => \get_rest_url( null, 'woo1881/v1/phone_lookup' ),
-				'keyup_delay_ms'    => \apply_filters( 'woo1881_keyup_delay_ms', 500 ),
+				'phone_lookup_rest'   => \get_rest_url( null, 'woo1881/v1/phone_lookup' ),
+				'keyup_delay_ms'      => get_keyup_delay(),
+				'valid_phone_lengths' => get_phone_valid_lengths(),
 			] )
 		);
 	}
