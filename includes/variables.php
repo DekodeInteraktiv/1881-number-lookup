@@ -14,8 +14,9 @@ namespace Woo1881;
  */
 function get_default_admin_settings(): array {
 	return \apply_filters('woo1881_settings_defaults', [
-		'1881_subscription_key'     => '',
-		'1881_checkout_description' => esc_html__( 'Autofill your information from 1881 by filling out the phone number field below.', 'woo1881' ),
+		'1881_subscription_key'        => '',
+		'1881_checkout_description'    => esc_html__( 'Autofill your information from 1881 by filling out the phone number field below.', 'woo1881' ),
+		'1881_checkout_no_results_msg' => esc_html__( 'Sorry, no results were found for this number.', 'woo1881' ),
 	] );
 }
 

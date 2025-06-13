@@ -19,7 +19,7 @@ With a subscription key entered in settings page, the checkout should automatica
 
 It adds a section with a phone field in the beginning of the checkout page. When entering a phone number (minimum 8 digits), it will perform a 1881 phone lookup.
 
-If 1881 API returns with only 1 hit, the details are immediately filled in. If there's more than 1 hit, an autocomplete list will appear and upon clicking the right item, it will autofill the details for the chosen entry. If 1881 returned no hits, nothing will be filled in.
+If 1881 API returns with only 1 hit, the details are immediately filled in. If there's more than 1 hit, an autocomplete list will appear and upon clicking the right item, it will autofill the details for the chosen entry. If 1881 returned no hits, a message is displayed informing the user that there were no hits. All phone searches will clear all checkout fields before filling in with search results details, if any.
 
 If 1881 API had missing data (e.g. a person chooses to hide address), then WooCommerce's validation is triggered, prompting the user to fill in the remaining required data themselves.
 
@@ -67,3 +67,4 @@ The plugin provides the following CSS variables for developers to adjust styling
 * `--woo1881-autocomplete-border-color`: Border color for the autocomplete container.
 * `--woo1881-autocomplete-text-color`: Text color on autocomplete items.
 * `--woo1881-autocomplete-hover-text-color`: Text color on hover autocomplete item.
+* `--woo1881-error-color`: Text and icon fill color for the error message when search returned no hits.

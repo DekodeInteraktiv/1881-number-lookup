@@ -7,7 +7,7 @@
  * Author URI:           https://www.dekode.no
  * Developer:            Dekode
  * Developer URI:        https://www.dekode.no
- * Version:              1.0.1
+ * Version:              1.0.2
  * Text Domain:          woo1881
  * Domain Path:          /languages
  * Requires Plugins:     woocommerce
