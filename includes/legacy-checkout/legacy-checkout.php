@@ -40,6 +40,9 @@ function render_checkout_lookup_html(): string {
 		return '';
 	}
 
+	$defaults        = get_default_admin_settings();
+	$no_results_text = ! empty( $settings['1881_checkout_no_results_msg'] ) ? $settings['1881_checkout_no_results_msg'] : $defaults['1881_checkout_no_results_msg'] ?? '';
+
 	$output = \sprintf(
 		'<div class="woo1881-lookup legacy-checkout" id="woo1881-lookup">
 			<p class="woo1881-description">%1$s</p>
@@ -48,12 +51,19 @@ function render_checkout_lookup_html(): string {
 				<div class="woo1881-input-container wc-block-components-text-input">
 					<label for="woo1881-phone-lookup">%2$s</label>
 					<input type="tel" id="woo1881-phone-lookup" class="woo1881-lookup-input" autocapitalize="characters" autocomplete="tel" aria-label="%2$s" aria-invalid="false" />
+					<div class="woo1881-no-results" role="alert">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+							<path d="M10 2c4.42 0 8 3.58 8 8s-3.58 8-8 8-8-3.58-8-8 3.58-8 8-8zm1.13 9.38l.35-6.46H8.52l.35 6.46h2.26zm-.09 3.36c.24-.23.37-.55.37-.96 0-.42-.12-.74-.36-.97s-.59-.35-1.06-.35-.82.12-1.07.35-.37.55-.37.97c0 .41.13.73.38.96.26.23.61.34 1.06.34s.8-.11 1.05-.34z"></path>
+						</svg>
+						<span>%4$s</span>
+					</div>
 				</div>
 			</div>
 		</div>',
 		\wp_kses_post( $settings['1881_checkout_description'] ),
 		esc_html__( 'Phone number for 1881 lookup', 'woo1881' ),
-		get_1881_logo()  // phpcs:ignore
+		get_1881_logo(),  // phpcs:ignore
+		esc_html( $no_results_text )
 	);
 
 	return \apply_filters( 'woo1881_legacy_checkout_html', $output, $settings );

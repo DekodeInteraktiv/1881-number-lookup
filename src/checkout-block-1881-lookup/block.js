@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
  * Internal dependencies
  */
 import metadata from './block.json';
+import ErrorIcon from './erroricon';
 
 const { registerCheckoutBlock } = wc.blocksCheckout;
 
@@ -24,6 +25,7 @@ const Block = () => {
 	const [optionsData, setOptionsData] = useState([]);
 	const [autocompleteVisible, setAutocompleteVisible] = useState(false);
 	const [delayedValidation, setDelayedValidation] = useState(false);
+	const [showNoResultsMessage, setShowNoResultsMessage] = useState(false);
 
 	// Block settings.
 	const keyUpDelayTime = window.wcSettings['checkout-block-1881-lookup_data'].keyup_delay_ms;
@@ -31,6 +33,7 @@ const Block = () => {
 	const paragraphText = window.wcSettings['checkout-block-1881-lookup_data'].description_text;
 	const inputLabel = window.wcSettings['checkout-block-1881-lookup_data'].lookup_label;
 	const logo1881 = window.wcSettings['checkout-block-1881-lookup_data'].logo_1881_svg;
+	const noResultsText = window.wcSettings['checkout-block-1881-lookup_data'].no_results_text;
 
 	// Debounce input ("buffer", aka don't trigger request on every keystroke).
 	useEffect(() => {
@@ -84,6 +87,21 @@ const Block = () => {
 		}
 	};
 
+	const resetCheckoutFields = () => {
+		const emptyAddress = {
+			first_name: '',
+			last_name: '',
+			address_1: '',
+			city: '',
+			postcode: '',
+			email: '',
+			phone: '',
+			company: '',
+		};
+		setShippingAddress(emptyAddress);
+		setBillingAddress(emptyAddress);
+	};
+
 	const clickedAutocompleteItem = (index) => {
 		setAddresses(optionsData[index]);
 		setAutocompleteVisible(false);
@@ -91,6 +109,8 @@ const Block = () => {
 
 	const lookupPhoneNumber = () => {
 		setAutocompleteVisible(false);
+		resetCheckoutFields();
+		setShowNoResultsMessage(false);
 
 		const url = `${window.wcSettings['checkout-block-1881-lookup_data'].phone_lookup_rest}?phone=${phone}`;
 		fetch(url, {
@@ -107,6 +127,8 @@ const Block = () => {
 					} else {
 						setAutocompleteVisible(true);
 					}
+				} else if (data.search_result.length === 0) {
+					setShowNoResultsMessage(true);
 				}
 			});
 	};
@@ -115,6 +137,7 @@ const Block = () => {
 		const formattedPhone = e.target.value.replace(/\D/g, '');
 		setPhone(formattedPhone);
 		setAutocompleteVisible(false);
+		setShowNoResultsMessage(false);
 	};
 
 	/***
@@ -154,6 +177,14 @@ const Block = () => {
 						aria-label={inputLabel}
 						aria-invalid="false"
 					/>
+					{showNoResultsMessage && (
+						<div className="wc-block-components-validation-error" role="alert">
+							<p>
+								<ErrorIcon />
+								<span>{noResultsText}</span>
+							</p>
+						</div>
+					)}
 					{autocompleteVisible && (
 						<div className="woo1881-autocomplete-container">
 							{optionsData.map((x, index) => (

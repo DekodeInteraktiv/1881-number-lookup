@@ -4,6 +4,7 @@
 	--woo1881-autocomplete-border-color: rgb(118, 118, 188);
 	--woo1881-autocomplete-text-color: var(--wp--preset--color--black);
 	--woo1881-autocomplete-hover-text-color: #0693e3;
+	--woo1881-error-color: #a00;
 }
 
 .woo1881-lookup {
@@ -30,6 +31,16 @@
 		& .woo1881-lookup-input {
 			font-size: var(--wp--preset--font-size--small);
 			padding: .9rem 1.1rem;
+		}
+
+		& .woo1881-no-results {
+			color: var(--woo1881-error-color);
+			display: none;
+			margin-top: 6px;
+
+			& svg {
+				fill: var(--woo1881-error-color);
+			}
 		}
 	}
 

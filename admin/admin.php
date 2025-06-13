@@ -132,6 +132,20 @@ function initialize_admin_settings() {
 		]
 	);
 
+	\add_settings_field(
+		'1881_checkout_no_results_msg',
+		esc_html__( 'Message text when number search gave no results', 'woo1881' ),
+		__NAMESPACE__ . '\\setting_text_element_callback',
+		$option,
+		'woo1881_checkout_settings',
+		[
+			'menu'    => $option,
+			'id'      => '1881_checkout_no_results_msg',
+			'size'    => '100',
+			'default' => isset( $defaults['1881_checkout_no_results_msg'] ) ? $defaults['1881_checkout_no_results_msg'] : '',
+		]
+	);
+
 	// Allow devs to add additional fields.
 	\do_action( 'woo1881_settings_add_settings_fields' );
 
