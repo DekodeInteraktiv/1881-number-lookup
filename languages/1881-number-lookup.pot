@@ -1,27 +1,23 @@
-# Copyright (C) 2025 Dekode
-# This file is distributed under the same license as the WooCommerce 1881 Integration plugin.
+# Copyright (C) 2025 Digitale Medier 1881
+# This file is distributed under the same license as the 1881 Number Lookup plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce 1881 Integration 1.0.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woo1881\n"
+"Project-Id-Version: 1881 Number Lookup 1.0.4\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/1881-number-lookup\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-13T09:08:10+00:00\n"
+"POT-Creation-Date: 2025-06-19T06:07:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
-"X-Domain: woo1881\n"
+"X-Domain: 1881-number-lookup\n"
 
 #. Plugin Name of the plugin
-#: admin/admin.php:38
-msgid "WooCommerce 1881 Integration"
-msgstr ""
-
-#. Plugin URI of the plugin
-#. Author URI of the plugin
-msgid "https://www.dekode.no"
+#: admin/admin.php:21
+#: admin/admin.php:22
+msgid "1881 Number Lookup"
 msgstr ""
 
 #. Description of the plugin
@@ -29,12 +25,15 @@ msgid "Adds lookup of adress and contact information from 1881 in WooCommerce ch
 msgstr ""
 
 #. Author of the plugin
-msgid "Dekode"
+msgid "Digitale Medier 1881"
 msgstr ""
 
-#: admin/admin.php:21
-#: admin/admin.php:22
-msgid "Woo 1881"
+#. Author URI of the plugin
+msgid "https://www.1881.no"
+msgstr ""
+
+#: admin/admin.php:38
+msgid "1881 Number Lookup for WooCommerce Checkout"
 msgstr ""
 
 #: admin/admin.php:39
@@ -74,7 +73,7 @@ msgid "Message text when number search gave no results"
 msgstr ""
 
 #: includes/block-checkout/class-blocks-1881-integration.php:48
-#: includes/legacy-checkout/legacy-checkout.php:66
+#: includes/legacy-checkout/legacy-checkout.php:64
 msgid "Phone number for 1881 lookup"
 msgstr ""
 
@@ -94,6 +93,6 @@ msgstr ""
 msgid "Sorry, no results were found for this number."
 msgstr ""
 
-#: plugin.php:46
-msgid "WooCommerce 1881 requires WooCommerce. Please install or activate WooCommerce"
+#: plugin.php:43
+msgid "1881 Number Lookup requires WooCommerce. Please install or activate WooCommerce"
 msgstr ""

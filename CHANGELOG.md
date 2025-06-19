@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.0.3 (2025-06-19)
+* Name change.
+
 1.0.2 (2025-06-13)
 * Searching a new phone number will now clear all checkout fields first.
 * When a phone number gives no hits in 1881, a message is now displayed below the search field.

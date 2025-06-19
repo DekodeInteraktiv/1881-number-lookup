@@ -1,16 +1,16 @@
 /* global jQuery */
 
 jQuery(function ($) {
-	const woo1881wrapper = $('.woo1881-lookup.legacy-checkout');
-	if (!woo1881wrapper || !window.Woo1881) {
+	const dm1881wrapper = $('.dm1881-lookup.legacy-checkout');
+	if (!dm1881wrapper || !window.DM1881) {
 		return;
 	}
 	const checkoutForm = $('.woocommerce-checkout');
-	const woo1881errorContainer = woo1881wrapper.find('.woo1881-no-results');
+	const dm1881errorContainer = dm1881wrapper.find('.dm1881-no-results');
 	let phoneNumber;
 	let autocompleteResults = [];
 
-	const phoneValidLengths = window.Woo1881.valid_phone_lengths;
+	const phoneValidLengths = window.DM1881.valid_phone_lengths;
 
 	// Helper method to "buffer" keyup event on input (aka don't try to send request on every single keystroke).
 	const keyupDelay = (fn, ms) => {
@@ -23,7 +23,7 @@ jQuery(function ($) {
 
 	// Delete autocomplete HTML, if exists.
 	const clearAutocomplete = () => {
-		const autocompleteContainer = woo1881wrapper.find('.woo1881-autocomplete-container');
+		const autocompleteContainer = dm1881wrapper.find('.dm1881-autocomplete-container');
 		if (autocompleteContainer.length > 0) {
 			autocompleteContainer.remove();
 		}
@@ -32,15 +32,15 @@ jQuery(function ($) {
 	// Generate HTML with autocomplete results.
 	const createAutoomplete = () => {
 		const autocompleteDOM = document.createElement('div');
-		autocompleteDOM.classList.add('woo1881-autocomplete-container');
+		autocompleteDOM.classList.add('dm1881-autocomplete-container');
 		for (let i = 0; i < autocompleteResults.length; i++) {
 			const itemDOM = document.createElement('div');
-			itemDOM.classList.add('woo1881-autocomplete-item');
+			itemDOM.classList.add('dm1881-autocomplete-item');
 			itemDOM.dataset.resultIndex = i;
 			itemDOM.textContent = autocompleteResults[i].autocomplete_display;
 			autocompleteDOM.appendChild(itemDOM);
 		}
-		woo1881wrapper.find('.woo1881-input-container').append(autocompleteDOM);
+		dm1881wrapper.find('.dm1881-input-container').append(autocompleteDOM);
 	};
 
 	// Perform REST request to look up a phone number.
@@ -48,9 +48,9 @@ jQuery(function ($) {
 		clearAutocomplete();
 		autocompleteResults = [];
 		fillInInfoAndUpdate({}, false);
-		woo1881errorContainer.hide();
+		dm1881errorContainer.hide();
 
-		const url = `${window.Woo1881.phone_lookup_rest}?phone=${phoneNumber}`;
+		const url = `${window.DM1881.phone_lookup_rest}?phone=${phoneNumber}`;
 		fetch(url, {
 			method: 'GET',
 		})
@@ -66,7 +66,7 @@ jQuery(function ($) {
 						createAutoomplete();
 					}
 				} else if (data.search_result.length === 0) {
-					woo1881errorContainer.show();
+					dm1881errorContainer.show();
 				}
 			});
 	};
@@ -172,7 +172,7 @@ jQuery(function ($) {
 		}
 	};
 
-	$(document).on('click', '.woo1881-autocomplete-item', function () {
+	$(document).on('click', '.dm1881-autocomplete-item', function () {
 		const hitIndex = parseInt($(this).data('resultIndex'));
 		if (typeof autocompleteResults[hitIndex] !== 'undefined') {
 			fillInInfoAndUpdate(autocompleteResults[hitIndex], true);
@@ -183,15 +183,15 @@ jQuery(function ($) {
 	// Detect keyup on phone number input with delay, perform search if valid length.
 	$(document).on(
 		'keyup',
-		'#woo1881-phone-lookup',
+		'#dm1881-phone-lookup',
 		keyupDelay(function () {
 			phoneNumber = $(this).val().replace(/\D/g, ''); // Ensure numbers only.
 			if (phoneValidLengths.includes(phoneNumber.length)) {
 				lookupPhoneNumber();
 			} else {
 				clearAutocomplete(); // Remove autocomplete ("close" dropdown).
-				woo1881errorContainer.hide();
+				dm1881errorContainer.hide();
 			}
-		}, window.Woo1881.keyup_delay_ms)
+		}, window.DM1881.keyup_delay_ms)
 	);
 });

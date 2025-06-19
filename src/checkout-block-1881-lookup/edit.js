@@ -13,10 +13,10 @@ export const Edit = () => {
 
 	return (
 		<div {...blockProps}>
-			<div className="woo1881-lookup block-checkout" id="woo1881-lookup">
-				<p className="woo1881-description">{paragraphText}</p>
+			<div className="dm1881-lookup block-checkout" id="dm1881-lookup">
+				<p className="dm1881-description">{paragraphText}</p>
 				<div
-					className="woo1881-logo-input-container"
+					className="dm1881-logo-input-container"
 					style={{
 						alignItems: 'center',
 						display: 'flex',
@@ -25,7 +25,7 @@ export const Edit = () => {
 					}}
 				>
 					<div
-						className="woo1881-logo"
+						className="dm1881-logo"
 						dangerouslySetInnerHTML={{ __html: logo1881 }}
 						style={{
 							height: '32px',
@@ -33,18 +33,18 @@ export const Edit = () => {
 						}}
 					></div>
 					<div
-						className="woo1881-input-container wc-block-components-text-input"
+						className="dm1881-input-container wc-block-components-text-input"
 						style={{
 							flex: '1',
 							marginTop: '0',
 						}}
 					>
-						<label htmlFor="woo1881-phone-lookup">{inputLabel}</label>
+						<label htmlFor="dm1881-phone-lookup">{inputLabel}</label>
 						<input
 							type="tel"
 							value=""
-							id="woo1881-phone-lookup"
-							className="woo1881-lookup-input"
+							id="dm1881-phone-lookup"
+							className="dm1881-lookup-input"
 							autoCapitalize="characters"
 							autoComplete="tel"
 							aria-label={inputLabel}

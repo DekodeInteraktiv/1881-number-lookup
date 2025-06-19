@@ -1,4 +1,3 @@
-/* Copy of WooCommerce error SVG from Woo blocks. */
 export default function ErrorIcon() {
 	return (
 		<svg

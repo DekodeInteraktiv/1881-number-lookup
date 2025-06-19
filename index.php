@@ -2,5 +2,5 @@
 /**
  * Silence is golden.
  *
- * @package Woo1881
+ * @package DM1881
  */

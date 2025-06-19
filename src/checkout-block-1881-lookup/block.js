@@ -154,24 +154,24 @@ const Block = () => {
 		setDelayedValidation(false);
 	}, [delayedValidation, showAllValidationErrors]);
 
-	let inputContainerClasses = 'woo1881-input-container wc-block-components-text-input';
+	let inputContainerClasses = 'dm1881-input-container wc-block-components-text-input';
 	if (phone.length > 0) {
 		inputContainerClasses += ' is-active';
 	}
 
 	return (
-		<div className="woo1881-lookup block-checkout" id="woo1881-lookup">
-			<p className="woo1881-description">{paragraphText}</p>
-			<div className="woo1881-logo-input-container">
-				<div className="woo1881-logo" dangerouslySetInnerHTML={{ __html: logo1881 }}></div>
+		<div className="dm1881-lookup block-checkout" id="dm1881-lookup">
+			<p className="dm1881-description">{paragraphText}</p>
+			<div className="dm1881-logo-input-container">
+				<div className="dm1881-logo" dangerouslySetInnerHTML={{ __html: logo1881 }}></div>
 				<div className={inputContainerClasses}>
-					<label htmlFor="woo1881-phone-lookup">{inputLabel}</label>
+					<label htmlFor="dm1881-phone-lookup">{inputLabel}</label>
 					<input
 						type="tel"
 						onChange={inputChangeEvent}
 						value={phone}
-						id="woo1881-phone-lookup"
-						className="woo1881-lookup-input"
+						id="dm1881-phone-lookup"
+						className="dm1881-lookup-input"
 						autoCapitalize="characters"
 						autoComplete="tel"
 						aria-label={inputLabel}
@@ -186,10 +186,10 @@ const Block = () => {
 						</div>
 					)}
 					{autocompleteVisible && (
-						<div className="woo1881-autocomplete-container">
+						<div className="dm1881-autocomplete-container">
 							{optionsData.map((x, index) => (
 								<div // eslint-disable-line
-									className="woo1881-autocomplete-item"
+									className="dm1881-autocomplete-item"
 									onClick={() => clickedAutocompleteItem(index)}
 									key={index}
 								>

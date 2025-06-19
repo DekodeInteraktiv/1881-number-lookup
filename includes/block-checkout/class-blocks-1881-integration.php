@@ -2,22 +2,22 @@
 /***
  * WooCommerce Integration block.
  *
- * @package Woo1881
+ * @package DM1881
  */
 
-namespace Woo1881;
+namespace DM1881;
 
 use Automattic\WooCommerce\Blocks\Integrations\IntegrationInterface;
 
 /***
  * Class Blocks_1881_Integration.
  *
- * @package Woo1881
+ * @package DM1881
  */
 class Blocks_1881_Integration implements IntegrationInterface {
 
 	/***
-	 * Returns name of the block (without woo1881 domain).
+	 * Returns name of the block (without dm1881 domain).
 	 *
 	 * @return string
 	 */
@@ -42,10 +42,10 @@ class Blocks_1881_Integration implements IntegrationInterface {
 		$settings = get_saved_settings();
 		$defaults = get_default_admin_settings();
 		return [
-			'phone_lookup_rest'   => \get_rest_url( null, 'woo1881/v1/phone_lookup' ),
+			'phone_lookup_rest'   => \get_rest_url( null, 'dm1881/v1/phone_lookup' ),
 			'keyup_delay_ms'      => get_keyup_delay(),
 			'description_text'    => ! empty( $settings['1881_checkout_description'] ) ? $settings['1881_checkout_description'] : '',
-			'lookup_label'        => esc_html__( 'Phone number for 1881 lookup', 'woo1881' ),
+			'lookup_label'        => esc_html__( 'Phone number for 1881 lookup', '1881-number-lookup' ),
 			'no_results_text'     => ! empty( $settings['1881_checkout_no_results_msg'] ) ? $settings['1881_checkout_no_results_msg'] : $defaults['1881_checkout_no_results_msg'] ?? '',
 			'logo_1881_svg'       => get_1881_logo(),
 			'valid_phone_lengths' => get_phone_valid_lengths(),
@@ -59,7 +59,7 @@ class Blocks_1881_Integration implements IntegrationInterface {
 	 */
 	public function get_script_handles() {
 		return [
-			'woo1881-block-frontend',
+			'dm1881-block-frontend',
 		];
 	}
 
@@ -70,7 +70,7 @@ class Blocks_1881_Integration implements IntegrationInterface {
 	 */
 	public function get_editor_script_handles() {
 		return [
-			'woo1881-block-editor',
+			'dm1881-block-editor',
 		];
 	}
 
@@ -78,13 +78,13 @@ class Blocks_1881_Integration implements IntegrationInterface {
 	 * Register scripts for editor.
 	 */
 	public function register_block_editor_scripts() {
-		$build_file  = WOO1881_PATH . '/build/checkout-block-1881-lookup/index.js';
-		$assets_file = WOO1881_PATH . '/build/checkout-block-1881-lookup/index.asset.php';
+		$build_file  = DM1881_PATH . '/build/checkout-block-1881-lookup/index.js';
+		$assets_file = DM1881_PATH . '/build/checkout-block-1881-lookup/index.asset.php';
 		if ( \file_exists( $build_file ) && \file_exists( $assets_file ) ) {
 			$assets = require $assets_file;
 			\wp_register_script(
-				'woo1881-block-editor',
-				WOO1881_URL . '/build/checkout-block-1881-lookup/index.js',
+				'dm1881-block-editor',
+				DM1881_URL . '/build/checkout-block-1881-lookup/index.js',
 				$assets['dependencies'],
 				$assets['version'],
 				true
@@ -96,13 +96,13 @@ class Blocks_1881_Integration implements IntegrationInterface {
 	 * Register scripts for frontend.
 	 */
 	public function register_block_frontend_scripts() {
-		$build_file  = WOO1881_PATH . '/build/checkout-block-1881-lookup/block.js';
-		$assets_file = WOO1881_PATH . '/build/checkout-block-1881-lookup/block.asset.php';
+		$build_file  = DM1881_PATH . '/build/checkout-block-1881-lookup/block.js';
+		$assets_file = DM1881_PATH . '/build/checkout-block-1881-lookup/block.asset.php';
 		if ( \file_exists( $build_file ) && \file_exists( $assets_file ) ) {
 			$assets = require $assets_file;
 			\wp_register_script(
-				'woo1881-block-frontend',
-				WOO1881_URL . '/build/checkout-block-1881-lookup/block.js',
+				'dm1881-block-frontend',
+				DM1881_URL . '/build/checkout-block-1881-lookup/block.js',
 				$assets['dependencies'],
 				$assets['version'],
 				true
@@ -110,13 +110,13 @@ class Blocks_1881_Integration implements IntegrationInterface {
 		}
 
 		// CSS must ble enqueued as IntegrationInterface does not support styles, nor will block.json styles work either.
-		$build_file  = WOO1881_PATH . '/build/checkout-block-1881-lookup/view.css';
-		$assets_file = WOO1881_PATH . '/build/checkout-block-1881-lookup/view.asset.php';
+		$build_file  = DM1881_PATH . '/build/checkout-block-1881-lookup/view.css';
+		$assets_file = DM1881_PATH . '/build/checkout-block-1881-lookup/view.asset.php';
 		if ( \file_exists( $build_file ) ) {
 			$assets = require $assets_file;
 			\wp_enqueue_style(
-				'woo1881-view',
-				WOO1881_URL . '/build/checkout-block-1881-lookup/view.css',
+				'dm1881-view',
+				DM1881_URL . '/build/checkout-block-1881-lookup/view.css',
 				$assets['dependencies'],
 				$assets['version']
 			);

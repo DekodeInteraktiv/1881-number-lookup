@@ -2,16 +2,16 @@
 /***
  * Core plugin setup and initialization.
  *
- * @package Woo1881
+ * @package DM1881
  */
 
-namespace Woo1881;
+namespace DM1881;
 
-require_once WOO1881_PATH . '/admin/admin.php';
-require_once WOO1881_PATH . '/api/api.php';
-require_once WOO1881_PATH . '/includes/variables.php';
-require_once WOO1881_PATH . '/includes/block-checkout/block-checkout.php';
-require_once WOO1881_PATH . '/includes/legacy-checkout/legacy-checkout.php';
+require_once DM1881_PATH . '/admin/admin.php';
+require_once DM1881_PATH . '/api/api.php';
+require_once DM1881_PATH . '/includes/variables.php';
+require_once DM1881_PATH . '/includes/block-checkout/block-checkout.php';
+require_once DM1881_PATH . '/includes/legacy-checkout/legacy-checkout.php';
 
 \add_action( 'rest_api_init', __NAMESPACE__ . '\\add_rest_route' );
 
@@ -20,7 +20,7 @@ require_once WOO1881_PATH . '/includes/legacy-checkout/legacy-checkout.php';
  */
 function add_rest_route() {
 	\register_rest_route(
-		'woo1881/v1',
+		'dm1881/v1',
 		'/phone_lookup',
 		[
 			'method'              => \WP_REST_Server::READABLE,
@@ -48,7 +48,7 @@ function rest_perform_search( \WP_REST_Request $request = null ) {
 	if ( empty( $phone ) ) {
 		return new \WP_REST_Response( [
 			'success' => false,
-			'message' => esc_html__( 'No phone number provided', 'woo1881' ),
+			'message' => esc_html__( 'No phone number provided', '1881-number-lookup' ),
 		], 200 );
 	}
 
@@ -56,19 +56,19 @@ function rest_perform_search( \WP_REST_Request $request = null ) {
 	if ( empty( $phone ) ) {
 		return new \WP_REST_Response( [
 			'success' => false,
-			'message' => esc_html__( 'Phone number failed validation', 'woo1881' ),
+			'message' => esc_html__( 'Phone number failed validation', '1881-number-lookup' ),
 		], 200 );
 	}
 
-	$transient_key = 'woo1881_phonelookup_' . $phone;
+	$transient_key = 'dm1881_phonelookup_' . $phone;
 
 	$search_results = \get_transient( $transient_key );
 	if ( false === $search_results ) {
 		$search_results = do_1881_api_phone_lookup( $phone );
-		\set_transient( $transient_key, $search_results, \apply_filters( 'woo1881_cache_phone_lookup_time', MINUTE_IN_SECONDS * 30 ) );
+		\set_transient( $transient_key, $search_results, \apply_filters( 'dm1881_cache_phone_lookup_time', MINUTE_IN_SECONDS * 30 ) );
 	}
 
-	$search_results = \apply_filters( 'woo1881_contacts_from_lookup', $search_results, $phone );
+	$search_results = \apply_filters( 'dm1881_contacts_from_lookup', $search_results, $phone );
 
 	// Parse the results into a easy-to-handle format for JS.
 	$search_results = parse_contactinfo_for_frontend( $search_results );
@@ -87,7 +87,7 @@ function rest_perform_search( \WP_REST_Request $request = null ) {
  * @return string
  */
 function validate_phone_number( string $phone_number ): string {
-	return \apply_filters( 'woo1881_validate_phone_number_before_search', $phone_number );
+	return \apply_filters( 'dm1881_validate_phone_number_before_search', $phone_number );
 }
 
 /***
@@ -99,7 +99,7 @@ function validate_phone_number( string $phone_number ): string {
 function parse_contactinfo_for_frontend( array $search_results ): array {
 	$formatted = [];
 
-	$address_truncate_length = \apply_filters( 'woo1881_autocomplete_address_truncate_length', 15 );
+	$address_truncate_length = \apply_filters( 'dm1881_autocomplete_address_truncate_length', 15 );
 
 	foreach ( $search_results as $item ) {
 		$type     = $item['type'];
@@ -226,7 +226,7 @@ function parse_contactinfo_for_frontend( array $search_results ): array {
 		$formatted[] = $new_item;
 	}
 
-	return \apply_filters( 'woo1881_contacts_formatted', $formatted, $search_results );
+	return \apply_filters( 'dm1881_contacts_formatted', $formatted, $search_results );
 }
 
 /***

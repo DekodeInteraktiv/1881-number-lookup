@@ -12,10 +12,10 @@
 	},
 	"category": "woocommerce",
 	"editorScript": "file:index.js",
-	"keywords": ["checkout", "1881", "lookup", "phone", "woo1881"],
-	"name": "woo1881/checkout-block-1881-lookup",
+	"keywords": ["checkout", "1881", "lookup", "phone", "dm881"],
+	"name": "dm1881/checkout-block-1881-lookup",
 	"parent": ["woocommerce/checkout-contact-information-block"],
-	"textdomain": "woo1881",
+	"textdomain": "dm1881",
 	"title": "Checkout 1881 Lookup",
 	"viewScript": "file:block.js",
 	"viewStyle": "file:view.css"

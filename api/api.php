@@ -2,10 +2,10 @@
 /***
  * Handles API requests to 1881.
  *
- * @package Woo1881
+ * @package DM1881
  */
 
-namespace Woo1881;
+namespace DM1881;
 
 /***
  * Perform request to 1881 to look up a phone number.
@@ -48,7 +48,7 @@ function do_1881_api_phone_lookup( string $phone ): array {
 function get_api_request_headers(): array {
 	$subscription_key = get_subscription_key();
 	if ( ! empty( $subscription_key ) ) {
-		return \apply_filters( 'woo1881_api_request_headers', [
+		return \apply_filters( 'dm1881_api_request_headers', [
 			'Cache-Control'             => 'no-cache',
 			'Ocp-Apim-Subscription-Key' => $subscription_key,
 		] );

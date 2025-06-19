@@ -1,5 +1,5 @@
 {
-	"name": "dekode/woo1881",
+	"name": "dekode/dm1881",
 	"description": "Adds lookup of adress and contact information from 1881 in WooCommerce checkout",
 	"license": "GPL-3.0-or-later",
 	"require": {
@@ -20,7 +20,7 @@
 			"./vendor/bin/phpcs ."
 		],
 		"make-pot": [
-			"wp i18n make-pot . --exclude=\"node_modules,src\" --slug=woo1881 --domain=woo1881"
+			"wp i18n make-pot . --exclude=\"node_modules,src\" --slug=1881-number-lookup --domain=1881-number-lookup"
 		],
 		"make-json": [
 			"wp i18n make-json languages/ --no-purge"

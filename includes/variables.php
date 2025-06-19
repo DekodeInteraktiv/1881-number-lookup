@@ -2,10 +2,10 @@
 /***
  * Variables.
  *
- * @package Woo1881
+ * @package DM1881
  */
 
-namespace Woo1881;
+namespace DM1881;
 
 /***
  * Returns default settings for admin settings page.
@@ -13,10 +13,10 @@ namespace Woo1881;
  * @return array
  */
 function get_default_admin_settings(): array {
-	return \apply_filters('woo1881_settings_defaults', [
+	return \apply_filters('dm1881_settings_defaults', [
 		'1881_subscription_key'        => '',
-		'1881_checkout_description'    => esc_html__( 'Autofill your information from 1881 by filling out the phone number field below.', 'woo1881' ),
-		'1881_checkout_no_results_msg' => esc_html__( 'Sorry, no results were found for this number.', 'woo1881' ),
+		'1881_checkout_description'    => esc_html__( 'Autofill your information from 1881 by filling out the phone number field below.', '1881-number-lookup' ),
+		'1881_checkout_no_results_msg' => esc_html__( 'Sorry, no results were found for this number.', '1881-number-lookup' ),
 	] );
 }
 
@@ -26,7 +26,7 @@ function get_default_admin_settings(): array {
  * @return array
  */
 function get_saved_settings(): array {
-	$settings = \get_option( 'woo1881_admin_settings' );
+	$settings = \get_option( 'dm1881_admin_settings' );
 	return ! empty( $settings ) ? $settings : [];
 }
 
@@ -46,7 +46,7 @@ function get_subscription_key(): string {
  * @return int
  */
 function get_keyup_delay(): int {
-	return \apply_filters( 'woo1881_keyup_delay_ms', 250 );
+	return \apply_filters( 'dm1881_keyup_delay_ms', 250 );
 }
 
 /***
@@ -55,7 +55,7 @@ function get_keyup_delay(): int {
  * @return int
  */
 function get_phone_valid_lengths(): array {
-	return \apply_filters( 'woo1881_phone_valid_lengths', [ 5, 8 ] );
+	return \apply_filters( 'dm1881_phone_valid_lengths', [ 5, 8 ] );
 }
 
 /***
@@ -73,5 +73,5 @@ function get_1881_api_base_url(): string {
  * @return string
  */
 function get_1881_logo(): string {
-	return \file_get_contents( WOO1881_PATH . '/assets/svg/1881-logo.svg' );  // phpcs:ignore
+	return \file_get_contents( DM1881_PATH . '/assets/svg/1881-logo.svg' );  // phpcs:ignore
 }

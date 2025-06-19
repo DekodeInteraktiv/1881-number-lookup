@@ -1,22 +1,22 @@
 :where(body) {
-	--woo1881-autocomplete-maxheight: 300px;
-	--woo1881-autocomplete-background: #fbfbfb;
-	--woo1881-autocomplete-border-color: rgb(118, 118, 188);
-	--woo1881-autocomplete-text-color: var(--wp--preset--color--black);
-	--woo1881-autocomplete-hover-text-color: #0693e3;
-	--woo1881-error-color: #a00;
+	--dm1881-autocomplete-maxheight: 300px;
+	--dm1881-autocomplete-background: #fbfbfb;
+	--dm1881-autocomplete-border-color: rgb(118, 118, 188);
+	--dm1881-autocomplete-text-color: var(--wp--preset--color--black);
+	--dm1881-autocomplete-hover-text-color: #0693e3;
+	--dm1881-error-color: #a00;
 }
 
-.woo1881-lookup {
+.dm1881-lookup {
     position: relative;
 
-	& .woo1881-logo-input-container {
+	& .dm1881-logo-input-container {
 		align-items: center;
 		display: flex;
 		flex-direction: row;
 		gap: 16px;
 
-		& .woo1881-logo {
+		& .dm1881-logo {
 			height: 32px;
 			width: 32px;
 		}
@@ -24,27 +24,27 @@
 
 	&.legacy-checkout {
 
-		& .woo1881-input-container {
+		& .dm1881-input-container {
 			position: relative;
 		}
 
-		& .woo1881-lookup-input {
+		& .dm1881-lookup-input {
 			font-size: var(--wp--preset--font-size--small);
 			padding: .9rem 1.1rem;
 		}
 
-		& .woo1881-no-results {
-			color: var(--woo1881-error-color);
+		& .dm1881-no-results {
+			color: var(--dm1881-error-color);
 			display: none;
 			margin-top: 6px;
 
 			& svg {
-				fill: var(--woo1881-error-color);
+				fill: var(--dm1881-error-color);
 			}
 		}
 	}
 
-	& .woo1881-input-container {
+	& .dm1881-input-container {
 		display: flex;
 		flex: 1;
 		flex-direction: column;
@@ -54,13 +54,13 @@
 		}
 	}
 
-	& .woo1881-autocomplete-container {
-		background-color: var(--woo1881-autocomplete-background);
-		border: 1px solid var(--woo1881-autocomplete-border-color);
+	& .dm1881-autocomplete-container {
+		background-color: var(--dm1881-autocomplete-background);
+		border: 1px solid var(--dm1881-autocomplete-border-color);
 		border-radius: 0 0 4px 4px;
 		border-top: none;
 		left: 0;
-		max-height: var(--woo1881-autocomplete-maxheight);
+		max-height: var(--dm1881-autocomplete-maxheight);
 		overflow-x: hidden;
 		overflow-y: auto;
 		position: absolute;
@@ -68,15 +68,15 @@
 		top: 100%;
 		z-index: 99;
 
-		& .woo1881-autocomplete-item {
-			border-bottom: 1px solid var(--woo1881-autocomplete-border-color);
-			color: var(--woo1881-autocomplete-text-color);
+		& .dm1881-autocomplete-item {
+			border-bottom: 1px solid var(--dm1881-autocomplete-border-color);
+			color: var(--dm1881-autocomplete-text-color);
 			cursor: pointer;
 			padding: .5rem;
 			transition: all .2s;
 
 			&:hover {
-				color: var(--woo1881-autocomplete-hover-text-color);
+				color: var(--dm1881-autocomplete-hover-text-color);
 			}
 
 			&:last-child {
