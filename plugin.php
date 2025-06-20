@@ -19,20 +19,22 @@
 
 namespace DM1881;
 
-defined( 'ABSPATH' ) || exit;
+\defined( 'ABSPATH' ) || exit;
 
-define( 'DM1881_FILE', __FILE__ );
-define( 'DM1881_PATH', __DIR__ );
-define( 'DM1881_URL', \plugins_url( '', __FILE__ ) );
+\define( 'DM1881_FILE', __FILE__ );
+\define( 'DM1881_PATH', __DIR__ );
+\define( 'DM1881_URL', \plugins_url( '', __FILE__ ) );
 
-/***
- * Check if WooCommerce is active before running code.
- */
-if ( \in_array( 'woocommerce/woocommerce.php', \apply_filters( 'active_plugins', \get_option( 'active_plugins' ) ), true ) || ( \is_multisite() && \array_key_exists( 'woocommerce/woocommerce.php', \get_site_option( 'active_sitewide_plugins' ) ) ) ) {
-	require_once DM1881_PATH . '/includes/core.php';
-} else {
-	\add_action( 'admin_notices', __NAMESPACE__ . '\\display_woo_not_installed_notice' );
-}
+\add_action( 'plugins_loaded', function() {
+	/***
+	 * Check if WooCommerce is active before running code.
+	 */
+	if ( \in_array( 'woocommerce/woocommerce.php', \apply_filters( 'active_plugins', \get_option( 'active_plugins' ) ), true ) || ( \is_multisite() && \array_key_exists( 'woocommerce/woocommerce.php', \get_site_option( 'active_sitewide_plugins' ) ) ) ) {
+		require_once DM1881_PATH . '/includes/core.php';
+	} else {
+		\add_action( 'admin_notices', __NAMESPACE__ . '\\display_woo_not_installed_notice' );
+	}
+} );
 
 /***
  * Display Woocommerce Activation notice.

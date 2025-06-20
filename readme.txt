@@ -14,13 +14,13 @@ Make checkout faster and easier with automatic retrieval of name and address bas
 
 With 1881 Number Lookup for WooCommerce Checkout, you can offer a more precise checkout experience that will result in a higher conversion rate. Customers only need to fill in their phone number at checkout, and the name and address will be automatically filled in.
 
-1881 is Norway\'s original, largest, and most used directory service. 1881 is the leading provider of personal and business information and has been delivering information about phone numbers, names, and addresses for more than 140 years. You can find 1881 online, on mobile apps, via SMS, and by calling 1881. 1881 is among the most well-known brands in Norway, making 1881\'s directory service the natural place to search for names, numbers, maps, and addresses. With access to more than 7,350,000 contact points in the database, we ensure that you, as a user of Norway\'s largest information service, quickly and easily find the right answer to what you are looking for. The database is continuously updated with up to 125,000 daily updates.
+1881 is Norway's original, largest, and most used directory service. 1881 is the leading provider of personal and business information and has been delivering information about phone numbers, names, and addresses for more than 140 years. You can find 1881 online, on mobile apps, via SMS, and by calling 1881. 1881 is among the most well-known brands in Norway, making 1881's directory service the natural place to search for names, numbers, maps, and addresses. With access to more than 7,350,000 contact points in the database, we ensure that you, as a user of Norway's largest information service, quickly and easily find the right answer to what you are looking for. The database is continuously updated with up to 125,000 daily updates.
 
 == Installation ==
 1. Install and activate the plugin via [WordPress.org plugins](https://wordpress.org/) or [GitHub](https://github.com/).
-2. Go to Woocommerce > 1881 Number Lookup for WooCommerce Checkout.
-3. Go to [www.api1881.no](https://www.api1881.no/) to create a user, then activate a FREE test product (provides 50 searches)
-4. Paste your API key from [www.api1881.no/profile](https://www.api1881.no/profile) in settings page.
+2. Go to [www.api1881.no](https://www.api1881.no/) to create a user, then activate a FREE test product (provides 50 searches)
+3. Go to Woocommerce > 1881 Number Lookup.
+4. Paste your API key from [www.api1881.no/profile](https://www.api1881.no/profile) in the field for subscription key.
 5. Click Save – and the plugin is ready for use at checkout.
 
 == Frequently Asked Questions ==
@@ -36,14 +36,6 @@ When the customer enters their phone number at checkout, the plugin checks the 1
 = Do I need an API key? =
 
 Yes, to use the plugin, you must have a valid API key from 1881. You can obtain this key by visiting [www.api1881.no](https://www.api1881.no/) and entering into a commercial agreement.
-
-= How do I set up 1881 Number Lookup for WooCommerce Checkout? =
-
-1. Install and activate the plugin via [WordPress.org plugins](https://wordpress.org/) or [GitHub](https://github.com/).
-2. Go to Woocommerce > 1881 Number Lookup for WooCommerce Checkout.
-3. Go to [www.api1881.no](https://www.api1881.no/) to create a user, then activate a FREE test product (provides 50 searches)
-4. Paste your API key from [www.api1881.no/profile](https://www.api1881.no/profile)
-5. Click Save – and the plugin is ready for use at checkout.
 
 = How do I know it works? =
 
@@ -81,29 +73,3 @@ Yes, 1881 typically charges per lookup when the plugin is used. You must enter i
 = Does the plugin work with other checkout solutions? =
 
 Yes, 1881 Number Lookup for WooCommerce Checkout works with WooCommerce's standard checkout; both legacy checkout and Checkout block. If you use a highly customized checkout solution (e.g., One Page Checkout), it is recommended to perform some tests to ensure everything works as expected.
-
-== Customization for developers ==
-
-The plugin provides the following filters for developers to adjust settings or extend functionality:
-
-* `dm1881_contacts_formatted` (array): The final parsed 1881 hits before this is sent to frontend script to autofill or display autocomplete.
-* `dm1881_contacts_from_lookup` (array): Filter applied on 1881's immediate phone lookup results, before being parsed for frontend.
-* `dm1881_validate_phone_number_before_search` (string): Allow to validate or modify the phone number before performing 1881 lookup.
-* `dm1881_phone_valid_lengths` (int array): Define an array of ints with phone number lengths. Only when entered phone number is one of these lengths, a 1881 lookup is performed. Default `[ 5, 8 ]`.
-* `dm1881_keyup_delay_ms` (int): Amount of ms to wait while typing in the phone field, before a lookup is performed.
-* `dm1881_autocomplete_address_truncate_length` (int): Define the maximum number of characters to display in autocomplete list ("..." excluded)
-* `dm1881_cache_phone_lookup_time` (int): Define the transient's expiration time for each phone number.
-* `dm1881_api_request_headers` (array): HTTP headers used for sending requests to 1881 API.
-* `dm1881_legacy_checkout_output_hook` (string): The WooCommerce template hook to output the phone lookup section in legacy checkout.
-* `dm1881_script_localized_variables_legacy` (array): Variables being localized to the frontend script for legacy checkout.
-* `dm1881_legacy_checkout_html` (string): Full HTML output for 1881 phone lookup section in legacy checkout.
-* `dm1881_settings_defaults` (array): Default settings for admin settings page.
-
-The plugin provides the following CSS variables for developers to adjust styling:
-
-* `--dm1881-autocomplete-maxheight`: Max height for autocomplete container. If the number of results exceeds this, a scrollbar is displayed.
-* `--dm1881-autocomplete-background`: Background color for the autocomplete container.
-* `--dm1881-autocomplete-border-color`: Border color for the autocomplete container.
-* `--dm1881-autocomplete-text-color`: Text color on autocomplete items.
-* `--dm1881-autocomplete-hover-text-color`: Text color on hover autocomplete item.
-* `--dm1881-error-color`: Text and icon fill color for the error message when search returned no hits.
