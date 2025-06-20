@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:          1881 Number Lookup
+ * Plugin Name:          GIT 1881 Number Lookup
  * Description:          Adds lookup of adress and contact information from 1881 in WooCommerce checkout.
  * Author:               Digitale Medier 1881
  * Author URI:           https://www.1881.no

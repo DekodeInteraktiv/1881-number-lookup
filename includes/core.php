@@ -8,7 +8,7 @@
 namespace DM1881;
 
 require_once DM1881_PATH . '/admin/admin.php';
-require_once DM1881_PATH . '/api/api.php';
+require_once DM1881_PATH . '/includes/api/api.php';
 require_once DM1881_PATH . '/includes/variables.php';
 require_once DM1881_PATH . '/includes/block-checkout/block-checkout.php';
 require_once DM1881_PATH . '/includes/legacy-checkout/legacy-checkout.php';

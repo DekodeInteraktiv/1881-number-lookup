@@ -29,9 +29,19 @@
 	"require": {
 		"wp-cli/i18n-command": "^2.11"
 	},
+	"files": [
+		"admin",
+		"build",
+		"includes",
+		"languages",
+		"public",
+		"CHANGELOG.md",
+		"dm1881.php"
+	],
 	"scripts": {
 		"build": "wp-scripts build",
-		"start": "wp-scripts start"
+		"start": "wp-scripts start",
+		"plugin-zip": "wp-scripts plugin-zip --root-folder='1881-number-lookup'"
 	},
 	"stylelint": {
 		"extends": "@wordpress/stylelint-config",
