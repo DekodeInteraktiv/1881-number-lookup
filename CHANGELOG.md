@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.0.4 (2025-06-23)
+* Update plugin name and stable version.
+
 1.0.3 (2025-06-19)
 * Name change.
 
