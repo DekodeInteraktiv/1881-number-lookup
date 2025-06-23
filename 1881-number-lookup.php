@@ -25,7 +25,7 @@ namespace DM1881;
 \define( 'DM1881_PATH', __DIR__ );
 \define( 'DM1881_URL', \plugins_url( '', __FILE__ ) );
 
-\add_action( 'plugins_loaded', function() {
+\add_action( 'plugins_loaded', function () {
 	/***
 	 * Check if WooCommerce is active before running code.
 	 */
