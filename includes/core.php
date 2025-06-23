@@ -60,7 +60,7 @@ function rest_perform_search( \WP_REST_Request $request = null ) {
 		], 200 );
 	}
 
-	$transient_key = 'dm1881_phonelookup_' . $phone;
+	$transient_key = 'dm1881_phonelookup_' . \wp_hash( $phone );
 
 	$search_results = \get_transient( $transient_key );
 	if ( false === $search_results ) {
