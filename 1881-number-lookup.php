@@ -1,13 +1,15 @@
 <?php
 /**
  * Plugin Name:          1881 Number Lookup
- * Description:          Adds lookup of adress and contact information from 1881 in WooCommerce checkout.
+ * Description:          Adds lookup of address and contact information from 1881 in WooCommerce checkout.
  * Author:               Digitale Medier 1881
  * Author URI:           https://www.1881.no
- * Version:              1.0.4
+ * Version:              1.0.5
  * Text Domain:          1881-number-lookup
  * Domain Path:          /languages
  * Requires Plugins:     woocommerce
+ * Requires PHP:         7.4
+ * Requires at least:    6.0
  * WC requires at least: 8.2
  * WC tested up to:      9.7
  *

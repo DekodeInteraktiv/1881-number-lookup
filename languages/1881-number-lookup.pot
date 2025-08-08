@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the 1881 Number Lookup plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1881 Number Lookup 1.0.4\n"
+"Project-Id-Version: 1881 Number Lookup 1.0.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/1881-number-lookup\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-19T06:07:49+00:00\n"
+"POT-Creation-Date: 2025-08-08T06:10:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: 1881-number-lookup\n"
@@ -21,7 +21,7 @@ msgid "1881 Number Lookup"
 msgstr ""
 
 #. Description of the plugin
-msgid "Adds lookup of adress and contact information from 1881 in WooCommerce checkout."
+msgid "Adds lookup of address and contact information from 1881 in WooCommerce checkout."
 msgstr ""
 
 #. Author of the plugin
@@ -30,6 +30,10 @@ msgstr ""
 
 #. Author URI of the plugin
 msgid "https://www.1881.no"
+msgstr ""
+
+#: 1881-number-lookup.php:47
+msgid "1881 Number Lookup requires WooCommerce. Please install or activate WooCommerce"
 msgstr ""
 
 #: admin/admin.php:38
@@ -91,8 +95,4 @@ msgstr ""
 
 #: includes/variables.php:19
 msgid "Sorry, no results were found for this number."
-msgstr ""
-
-#: plugin.php:43
-msgid "1881 Number Lookup requires WooCommerce. Please install or activate WooCommerce"
 msgstr ""

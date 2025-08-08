@@ -149,7 +149,10 @@ function initialize_admin_settings() {
 	// Allow devs to add additional fields.
 	\do_action( 'dm1881_settings_add_settings_fields' );
 
-	\register_setting( $option, $option, __NAMESPACE__ . '\\validate_settings' );
+	\register_setting( $option, $option, [
+		'type'              => 'string',
+		'sanitize_callback' => __NAMESPACE__ . '\\validate_settings'
+	] );
 }
 
 /***
