@@ -36,7 +36,7 @@
 		"languages",
 		"public",
 		"CHANGELOG.md",
-		"dm1881.php"
+		"1881-number-lookup.php"
 	],
 	"scripts": {
 		"build": "wp-scripts build",
