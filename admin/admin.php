@@ -151,7 +151,7 @@ function initialize_admin_settings() {
 
 	\register_setting( $option, $option, [
 		'type'              => 'string',
-		'sanitize_callback' => __NAMESPACE__ . '\\validate_settings'
+		'sanitize_callback' => __NAMESPACE__ . '\\validate_settings',
 	] );
 }
 
