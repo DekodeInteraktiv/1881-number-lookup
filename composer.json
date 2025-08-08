@@ -1,6 +1,6 @@
 {
 	"name": "dekode/dm1881",
-	"description": "Adds lookup of adress and contact information from 1881 in WooCommerce checkout",
+	"description": "Adds lookup of address and contact information from 1881 in WooCommerce checkout",
 	"license": "GPL-3.0-or-later",
 	"require": {
 		"php": ">=8.1"
