@@ -111,14 +111,12 @@ class Blocks_1881_Integration implements IntegrationInterface {
 
 		// CSS must ble enqueued as IntegrationInterface does not support styles, nor will block.json styles work either.
 		$build_file  = DM1881_PATH . '/build/checkout-block-1881-lookup/view.css';
-		$assets_file = DM1881_PATH . '/build/checkout-block-1881-lookup/view.asset.php';
 		if ( \file_exists( $build_file ) ) {
-			$assets = require $assets_file;
 			\wp_enqueue_style(
 				'dm1881-view',
 				DM1881_URL . '/build/checkout-block-1881-lookup/view.css',
-				$assets['dependencies'],
-				$assets['version']
+				[],
+				\filemtime( $build_file )
 			);
 		}
 	}

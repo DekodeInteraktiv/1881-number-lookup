@@ -1,0 +1,17 @@
+.dm1881-admin-header {
+	display: flex;
+	gap: 20px;
+}
+
+.dm1881-logo {
+	height: 70px;
+	width: 70px;
+}
+
+.dm1881-header-content {
+	flex: 1;
+}
+
+.dm1881-header-content h2 {
+	margin-top: 0.5em;
+}

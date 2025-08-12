@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.0.6 (2025-08-12)
+* Plugin review fixes.
+
 1.0.5 (2025-08-08)
 * Update plugin tags and typo. Minor review fixes.
 
