@@ -10,6 +10,7 @@ namespace DM1881\Admin;
 use function DM1881\get_1881_logo;
 
 \add_action( 'admin_menu', __NAMESPACE__ . '\\register_admin_menu', 99 );
+\add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_admin_styles' );
 \add_action( 'admin_init', __NAMESPACE__ . '\\initialize_admin_settings' );
 
 /***
@@ -58,23 +59,27 @@ function custom_admin_page_content() {
 		</form>
 		<div class="dm1881-test-authentication"></div>
 	</div>
-	<style>
-		.dm1881-admin-header {
-			display: flex;
-			gap: 20px;
-		}
-		.dm1881-logo {
-			height: 70px;
-			width: 70px;
-		}
-		.dm1881-header-content {
-			flex: 1;
-		}
-		.dm1881-header-content h2 {
-			margin-top: 0.5em;
-		}
-	</style>
 	<?php
+}
+
+/***
+ * Enqueue stylesheet for admin page.
+ *
+ * @param string $hook Hook to current admin page.
+ */
+function enqueue_admin_styles( string $hook ) {
+	if ( 'woocommerce_page_dm1881_settings_page' !== $hook ) {
+		return;
+	}
+	$admin_styles  = DM1881_PATH . '/build/admin.css';
+	if ( \file_exists( $admin_styles ) ) {
+		\wp_enqueue_style(
+			'dm1881-admin',
+			DM1881_URL . '/build/admin.css',
+			[],
+			\filemtime( $admin_styles )
+		);
+	}
 }
 
 /***
@@ -151,7 +156,7 @@ function initialize_admin_settings() {
 
 	\register_setting( $option, $option, [
 		'type'              => 'string',
-		'sanitize_callback' => __NAMESPACE__ . '\\validate_settings',
+		'sanitize_callback' => __NAMESPACE__ . '\\sanitize_settings',
 	] );
 }
 
@@ -223,21 +228,21 @@ function setting_textarea_element_callback( array $args ) {
 }
 
 /***
- * Validate settings.
+ * Sanitize settings.
  *
- * @param array $input Settings fields to validate.
+ * @param array $input Settings fields to sanitize.
  * @return array
  */
-function validate_settings( array $input ): array {
+function sanitize_settings( array $input ): array {
 	$output = [];
 	foreach ( $input as $key => $value ) {
 		if ( isset( $input[ $key ] ) ) {
 			if ( \is_array( $input[ $key ] ) ) {
 				foreach ( $input[ $key ] as $sub_key => $sub_value ) {
-					$output[ $key ][ $sub_key ] = $input[ $key ][ $sub_key ];
+					$output[ $key ][ $sub_key ] = \sanitize_text_field( $input[ $key ][ $sub_key ] );
 				}
 			} else {
-				$output[ $key ] = $input[ $key ];
+				$output[ $key ] = \sanitize_text_field( $input[ $key ] );
 			}
 		}
 	}

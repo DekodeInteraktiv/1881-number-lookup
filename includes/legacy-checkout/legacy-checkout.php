@@ -70,18 +70,16 @@ function render_checkout_lookup_html(): string {
 }
 
 /***
- * For legacy checkout, enqueue frontend script.
+ * For legacy checkout, enqueue frontend styles and script.
  */
 function enqueue_legacy_checkout_frontend_assets() {
 	$build_file  = DM1881_PATH . '/build/frontend.css';
-	$assets_file = DM1881_PATH . '/build/frontend.asset.php';
 	if ( \file_exists( $build_file ) ) {
-		$assets = require $assets_file;
 		\wp_enqueue_style(
 			'dm1881-view',
 			DM1881_URL . '/build/frontend.css',
-			$assets['dependencies'],
-			$assets['version']
+			[],
+			\filemtime( $build_file )
 		);
 	}
 
