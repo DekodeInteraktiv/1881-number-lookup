@@ -16,6 +16,11 @@ With 1881 Number Lookup for WooCommerce Checkout, you can offer a more precise c
 
 1881 is Norway's original, largest, and most used directory service. 1881 is the leading provider of personal and business information and has been delivering information about phone numbers, names, and addresses for more than 140 years. You can find 1881 online, on mobile apps, via SMS, and by calling 1881. 1881 is among the most well-known brands in Norway, making 1881's directory service the natural place to search for names, numbers, maps, and addresses. With access to more than 7,350,000 contact points in the database, we ensure that you, as a user of Norway's largest information service, quickly and easily find the right answer to what you are looking for. The database is continuously updated with up to 125,000 daily updates.
 
+== Screenshots ==
+1. Admin settings
+2. 1881 Lookup field in Block checkout
+3. 1881 Lookup field in legacy checkout
+
 == Installation ==
 1. Install and activate the plugin via [WordPress.org plugins](https://wordpress.org/plugins/1881-number-lookup) or [GitHub](https://github.com/DekodeInteraktiv/1881-number-lookup).
 2. Go to [www.api1881.no](https://www.api1881.no/) to create a user, then activate a FREE test product (provides 50 searches)
