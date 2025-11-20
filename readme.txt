@@ -1,7 +1,7 @@
 === 1881 Number Lookup ===
 Contributors: dekode
 Requires at least: 6.0
-Tested up to: 6.8
+Tested up to: 6.9
 Stable tag: 1.0.6
 Requires PHP: 7.4
 License: GPLv3 or later
@@ -17,11 +17,11 @@ With 1881 Number Lookup for WooCommerce Checkout, you can offer a more precise c
 1881 is Norway's original, largest, and most used directory service. 1881 is the leading provider of personal and business information and has been delivering information about phone numbers, names, and addresses for more than 140 years. You can find 1881 online, on mobile apps, via SMS, and by calling 1881. 1881 is among the most well-known brands in Norway, making 1881's directory service the natural place to search for names, numbers, maps, and addresses. With access to more than 7,350,000 contact points in the database, we ensure that you, as a user of Norway's largest information service, quickly and easily find the right answer to what you are looking for. The database is continuously updated with up to 125,000 daily updates.
 
 = Main Features =
-* Automatic filling of name and address based on phone number. 
-* Fast and easy checkout – ideal for mobile commerce.  
-* Reduces errors and improves customer experience. 
-* Compatible with WooCommerce's standard checkout. 
-* GDPR compliant. 
+* Automatic filling of name and address based on phone number.
+* Fast and easy checkout – ideal for mobile commerce.
+* Reduces errors and improves customer experience.
+* Compatible with WooCommerce's standard checkout.
+* GDPR compliant.
 
 == Screenshots ==
 1. Admin settings
