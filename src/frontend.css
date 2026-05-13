@@ -72,6 +72,7 @@
 			border-bottom: 1px solid var(--dm1881-autocomplete-border-color);
 			color: var(--dm1881-autocomplete-text-color);
 			cursor: pointer;
+			line-height: 1rem;
 			padding: .5rem;
 			transition: all .2s;
 

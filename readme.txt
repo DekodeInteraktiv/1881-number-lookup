@@ -1,8 +1,8 @@
 === 1881 Number Lookup ===
 Contributors: dekode
 Requires at least: 6.0
-Tested up to: 6.9
-Stable tag: 1.0.6
+Tested up to: 7.0
+Stable tag: 1.0.7
 Requires PHP: 7.4
 License: GPLv3 or later
 
